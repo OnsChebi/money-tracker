@@ -1,9 +1,21 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { TransactionsModule } from './transactions/transactions.module';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [],
+  imports: [ConfigModule.forRoot({ isGlobal: true }),TransactionsModule,TypeOrmModule.forRoot({
+    type:"mysql",
+    host:"localhost",
+    port:3306,
+    username:"root",
+    password:"root",
+    database:"money_tracker",
+    autoLoadEntities:true,
+    synchronize:true
+  })],
   controllers: [AppController],
   providers: [AppService],
 })
