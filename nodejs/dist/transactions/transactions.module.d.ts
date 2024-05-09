@@ -1,2 +1,2 @@
-export declare class TransactionsModule {
+export declare class TransactionUsersModule {
 }

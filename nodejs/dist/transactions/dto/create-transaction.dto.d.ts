@@ -1,7 +1,8 @@
-export declare class CreateTransactionDto {
+export declare class CreateTransactionUserDto {
     name: string;
     description: string;
     amount: number;
-    category: string;
     date: string;
+    tags: string[];
+    category: string;
 }

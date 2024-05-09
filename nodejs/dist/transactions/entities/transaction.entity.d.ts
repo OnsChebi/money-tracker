@@ -1,9 +1,9 @@
-export declare class Transaction {
+export declare class TransactionUser {
     id: number;
     name: string;
     description: string;
     amount: number;
-    category: string;
     date: string;
+    category: number;
     deletedAt: Date;
 }

@@ -1,8 +1,9 @@
-import { IsDate, IsNumber } from "class-validator";
-import { Column, DeleteDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+
+import { Category } from "src/categories/entities/category.entity";
+import { Column, DeleteDateColumn, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Transaction {
+export class TransactionUser {
 @PrimaryGeneratedColumn()
 id:number;
 @Column()
@@ -11,14 +12,21 @@ name:string;
 description:string;
 @Column()
 amount:number;
-@Column()
-category:string;
+// @Column()
+// category:string;
 @Column()
 //date:Date;
 date:string
-@Column()
+
+@ManyToOne(()=>Category,(category)=>category.id,{
+    eager:true,
+})
+category:number;
 @DeleteDateColumn()
 deletedAt: Date;
+
+
+
 
 
 }

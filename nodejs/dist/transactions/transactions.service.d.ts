@@ -1,13 +1,35 @@
-import { CreateTransactionDto } from './dto/create-transaction.dto';
-import { UpdateTransactionDto } from './dto/update-transaction.dto';
+import { CreateTransactionUserDto } from './dto/create-transaction.dto';
+import { UpdateTransactionUserDto } from './dto/update-transaction.dto';
 import { Repository } from 'typeorm';
-import { Transaction } from './entities/transaction.entity';
-export declare class TransactionsService {
+import { TransactionUser } from './entities/transaction.entity';
+import { Category } from 'src/categories/entities/category.entity';
+export declare class TransactionUsersService {
     private transactionRepository;
-    constructor(transactionRepository: Repository<Transaction>);
-    create(createTransactionDto: CreateTransactionDto): Promise<Transaction>;
-    findAll(): Promise<Transaction[]>;
-    findOne(id: number): Promise<Transaction>;
-    update(id: number, updateTransactionDto: UpdateTransactionDto): Promise<import("typeorm").UpdateResult>;
+    private categoriesRepository;
+    constructor(transactionRepository: Repository<TransactionUser>, categoriesRepository: Repository<Category>);
+    create(createTransactionUserDto: CreateTransactionUserDto): Promise<{
+        name: string;
+        description: string;
+        amount: number;
+        date: string;
+        category: number;
+    } & Category>;
+    findAll(): Promise<TransactionUser[]>;
+    findOne(id: number): Promise<TransactionUser>;
+    update(id: number, updateTransactionUserDto: UpdateTransactionUserDto): Promise<{
+        category: any;
+        apply(this: Function, thisArg: any, argArray?: any): any;
+        call(this: Function, thisArg: any, ...argArray: any[]): any;
+        bind(this: Function, thisArg: any, ...argArray: any[]): any;
+        toString(): string;
+        length: number;
+        arguments: any;
+        caller: Function;
+        name: string;
+        [Symbol.hasInstance](value: any): boolean;
+        id: number;
+        transactions: TransactionUser[];
+        deletedAt: Date;
+    } & TransactionUser>;
     remove(id: number): Promise<import("typeorm").UpdateResult>;
 }

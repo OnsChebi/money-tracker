@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UpdateTransactionDto = void 0;
+exports.UpdateTransactionUserDto = void 0;
 const mapped_types_1 = require("@nestjs/mapped-types");
 const create_transaction_dto_1 = require("./create-transaction.dto");
-class UpdateTransactionDto extends (0, mapped_types_1.PartialType)(create_transaction_dto_1.CreateTransactionDto) {
+class UpdateTransactionUserDto extends (0, mapped_types_1.PartialType)(create_transaction_dto_1.CreateTransactionUserDto) {
 }
-exports.UpdateTransactionDto = UpdateTransactionDto;
+exports.UpdateTransactionUserDto = UpdateTransactionUserDto;
 //# sourceMappingURL=update-transaction.dto.js.map

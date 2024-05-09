@@ -6,17 +6,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DatabaseModule = void 0;
+exports.CategoriesModule = void 0;
 const common_1 = require("@nestjs/common");
-const mongoose_1 = require("@nestjs/mongoose");
-let DatabaseModule = class DatabaseModule {
+const categories_service_1 = require("./categories.service");
+const categories_controller_1 = require("./categories.controller");
+const typeorm_1 = require("@nestjs/typeorm");
+const category_entity_1 = require("./entities/category.entity");
+let CategoriesModule = class CategoriesModule {
 };
-exports.DatabaseModule = DatabaseModule;
-exports.DatabaseModule = DatabaseModule = __decorate([
+exports.CategoriesModule = CategoriesModule;
+exports.CategoriesModule = CategoriesModule = __decorate([
     (0, common_1.Module)({
-        imports: [
-            mongoose_1.MongooseModule.forRoot('mongodb://localhost:27017/mydatabase'),
-        ],
+        imports: [typeorm_1.TypeOrmModule.forFeature([category_entity_1.Category])],
+        controllers: [categories_controller_1.CategoriesController],
+        providers: [categories_service_1.CategoriesService],
     })
-], DatabaseModule);
-//# sourceMappingURL=database.module.js.map
+], CategoriesModule);
+//# sourceMappingURL=categories.module.js.map
