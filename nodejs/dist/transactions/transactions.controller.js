@@ -12,17 +12,17 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.TransactionUsersController = void 0;
+exports.TransactionsController = void 0;
 const common_1 = require("@nestjs/common");
 const transactions_service_1 = require("./transactions.service");
 const create_transaction_dto_1 = require("./dto/create-transaction.dto");
 const update_transaction_dto_1 = require("./dto/update-transaction.dto");
-let TransactionUsersController = class TransactionUsersController {
+let TransactionsController = class TransactionsController {
     constructor(transactionsService) {
         this.transactionsService = transactionsService;
     }
-    create(createTransactionUserDto) {
-        return this.transactionsService.create(createTransactionUserDto);
+    create(createTransactionDto) {
+        return this.transactionsService.create(createTransactionDto);
     }
     findAll() {
         return this.transactionsService.findAll();
@@ -30,51 +30,51 @@ let TransactionUsersController = class TransactionUsersController {
     findOne(id) {
         return this.transactionsService.findOne(+id);
     }
-    update(id, updateTransactionUserDto) {
-        return this.transactionsService.update(+id, updateTransactionUserDto);
+    update(id, updateTransactionDto) {
+        return this.transactionsService.update(+id, updateTransactionDto);
     }
     remove(id) {
         return this.transactionsService.remove(+id);
     }
 };
-exports.TransactionUsersController = TransactionUsersController;
+exports.TransactionsController = TransactionsController;
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_transaction_dto_1.CreateTransactionUserDto]),
+    __metadata("design:paramtypes", [create_transaction_dto_1.CreateTransactionDto]),
     __metadata("design:returntype", void 0)
-], TransactionUsersController.prototype, "create", null);
+], TransactionsController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
-], TransactionUsersController.prototype, "findAll", null);
+], TransactionsController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
-], TransactionUsersController.prototype, "findOne", null);
+], TransactionsController.prototype, "findOne", null);
 __decorate([
     (0, common_1.Patch)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_transaction_dto_1.UpdateTransactionUserDto]),
+    __metadata("design:paramtypes", [String, update_transaction_dto_1.UpdateTransactionDto]),
     __metadata("design:returntype", void 0)
-], TransactionUsersController.prototype, "update", null);
+], TransactionsController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
-], TransactionUsersController.prototype, "remove", null);
-exports.TransactionUsersController = TransactionUsersController = __decorate([
+], TransactionsController.prototype, "remove", null);
+exports.TransactionsController = TransactionsController = __decorate([
     (0, common_1.Controller)('transactions'),
-    __metadata("design:paramtypes", [transactions_service_1.TransactionUsersService])
-], TransactionUsersController);
+    __metadata("design:paramtypes", [transactions_service_1.TransactionsService])
+], TransactionsController);
 //# sourceMappingURL=transactions.controller.js.map

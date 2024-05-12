@@ -26,7 +26,7 @@ let CategoriesService = class CategoriesService {
         return await this.categoriesRepository.save(category);
     }
     async findAll() {
-        return await this.categoriesRepository.find({ relations: ({ transactions: true }) });
+        return await this.categoriesRepository.find();
     }
     async findOne(id) {
         return await this.categoriesRepository.findOneBy({ id });

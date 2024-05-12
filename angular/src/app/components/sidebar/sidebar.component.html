@@ -1,0 +1,18 @@
+<div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed': ''"><!--taskirt sidenav-->
+    <div class="logo-container">
+        <button class="logo" (click)="toggleCollapse()">
+            <img class="myImg" src="/assets/image-removebg-preview.png"/>
+        </button>
+        <div class="logo-text" *ngIf="collapsed">Money tracker</div>
+    </div>
+    <ul class="sidenav-nav">
+        <li class="sidenav-nav-item" *ngFor="let data of navData; let i = index">
+            <a class="sidenav-nav-link" [routerLink]="[data.routeLink]">
+                <mat-icon class="sidenav-link-icon">{{data.icon}}</mat-icon>
+                <span class="sidenav-link-text" *ngIf="collapsed">
+                    {{data.text}}
+                </span>
+            </a>
+        </li>
+    </ul>
+</div>

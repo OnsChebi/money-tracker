@@ -3,7 +3,7 @@ import { Category } from "src/categories/entities/category.entity";
 import { Column, DeleteDateColumn, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class TransactionUser {
+export class Transaction {
 @PrimaryGeneratedColumn()
 id:number;
 @Column()
@@ -18,10 +18,10 @@ amount:number;
 //date:Date;
 date:string
 
-@ManyToOne(()=>Category,(category)=>category.id,{
-    eager:true,
-})
-category:number;
+// @ManyToOne(()=>Category,(category)=>category.id,{
+//     eager:true,
+// })
+// category:number;
 @DeleteDateColumn()
 deletedAt: Date;
 

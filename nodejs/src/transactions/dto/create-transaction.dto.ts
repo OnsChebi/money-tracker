@@ -1,6 +1,6 @@
 import { IsDate, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
-export class CreateTransactionUserDto {
+export class CreateTransactionDto {
     @IsString()
     @IsNotEmpty()
     name:string;
@@ -14,7 +14,7 @@ export class CreateTransactionUserDto {
     //date:Date;
     date:string;
     tags:string[];
-    @IsOptional()
-    category:string;
+    // @IsOptional()
+    // category:string;
 
 }

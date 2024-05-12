@@ -9,31 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateTransactionUserDto = void 0;
+exports.CreateTransactionDto = void 0;
 const class_validator_1 = require("class-validator");
-class CreateTransactionUserDto {
+class CreateTransactionDto {
 }
-exports.CreateTransactionUserDto = CreateTransactionUserDto;
+exports.CreateTransactionDto = CreateTransactionDto;
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], CreateTransactionUserDto.prototype, "name", void 0);
+], CreateTransactionDto.prototype, "name", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], CreateTransactionUserDto.prototype, "description", void 0);
+], CreateTransactionDto.prototype, "description", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
-], CreateTransactionUserDto.prototype, "amount", void 0);
+], CreateTransactionDto.prototype, "amount", void 0);
 __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
-], CreateTransactionUserDto.prototype, "date", void 0);
-__decorate([
-    (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", String)
-], CreateTransactionUserDto.prototype, "category", void 0);
+], CreateTransactionDto.prototype, "date", void 0);
 //# sourceMappingURL=create-transaction.dto.js.map

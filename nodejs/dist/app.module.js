@@ -19,7 +19,7 @@ let AppModule = class AppModule {
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [config_1.ConfigModule.forRoot({ isGlobal: true }), transactions_module_1.TransactionUsersModule, typeorm_1.TypeOrmModule.forRoot({
+        imports: [config_1.ConfigModule.forRoot({ isGlobal: true }), transactions_module_1.TransactionsModule, typeorm_1.TypeOrmModule.forRoot({
                 type: "mysql",
                 host: "localhost",
                 port: 3306,

@@ -1,15 +1,17 @@
 import { Module } from '@nestjs/common';
-import { TransactionUsersService } from './transactions.service';
-import { TransactionUsersController } from './transactions.controller';
+import { TransactionsService } from './transactions.service';
+import { TransactionsController } from './transactions.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TransactionUser } from './entities/transaction.entity';
-import { CategoriesModule } from 'src/categories/categories.module';
-import { CategoriesService } from 'src/categories/categories.service';
-import { Category } from 'src/categories/entities/category.entity';
+import { Transaction } from './entities/transaction.entity';
+// import { CategoriesModule } from 'src/categories/categories.module';
+// import { CategoriesService } from 'src/categories/categories.service';
+// import { Category } from 'src/categories/entities/category.entity';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([TransactionUser,Category]),CategoriesModule],//to register a repository for the TransactionUser entity within the module
-  controllers: [TransactionUsersController],
-  providers: [TransactionUsersService,CategoriesService],
+  // imports:[TypeOrmModule.forFeature([Transaction,Category]),CategoriesModule],
+  imports:[TypeOrmModule.forFeature([Transaction])],//to register a repository for the Transaction entity within the module
+  controllers: [TransactionsController],
+  // providers: [TransactionsService,CategoriesService],
+  providers: [TransactionsService],
 })
-export class TransactionUsersModule {}
+export class TransactionsModule {}

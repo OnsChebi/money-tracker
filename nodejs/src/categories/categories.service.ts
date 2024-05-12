@@ -18,7 +18,8 @@ constructor(
   }
 
   async findAll() {
-    return await this.categoriesRepository.find({relations:({transactions:true})});
+    //return await this.categoriesRepository.find({relations:({transactions:true})});
+    return await this.categoriesRepository.find()
   }
 
   async findOne(id: number) {
