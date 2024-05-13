@@ -1,5 +1,5 @@
 .date {
-    margin-left: 4%;
+    margin-left: 10%;
     font-size: 20px;
     color: rgb(12, 3, 3);
   }
@@ -10,9 +10,14 @@
     color: rgb(12, 3, 3);
 
   } */
+  .spacer {
+    flex: 1 1 auto;
+  }
   
   
-  
-  
+  .badge{
+    background-color: #0BDA51;
+    font-size: 0.9rem;
+  }
   
   
