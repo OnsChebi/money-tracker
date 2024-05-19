@@ -8,23 +8,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BudgetModule = void 0;
 const common_1 = require("@nestjs/common");
-const budget_controller_1 = require("./budget.controller");
 const budget_service_1 = require("./budget.service");
-const budget_entity_1 = require("./entities/budget.entity");
-const typeorm_1 = require("@nestjs/typeorm");
-const categories_module_1 = require("../categories/categories.module");
+const budget_controller_1 = require("./budget.controller");
 let BudgetModule = class BudgetModule {
 };
 exports.BudgetModule = BudgetModule;
 exports.BudgetModule = BudgetModule = __decorate([
     (0, common_1.Module)({
-        imports: [
-            typeorm_1.TypeOrmModule.forFeature([budget_entity_1.Budget]),
-            (0, common_1.forwardRef)(() => categories_module_1.CategoriesModule),
-        ],
         controllers: [budget_controller_1.BudgetController],
         providers: [budget_service_1.BudgetService],
-        exports: [budget_service_1.BudgetService],
     })
 ], BudgetModule);
 //# sourceMappingURL=budget.module.js.map

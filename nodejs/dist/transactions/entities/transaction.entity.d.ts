@@ -1,11 +1,11 @@
-import { Category } from "src/categories/entities/category.entity";
+import { Category } from 'src/categories/entities/category.entity';
 export declare class Transaction {
     id: number;
     name: string;
-    description: string;
+    description?: string;
     amount: number;
     date: string;
-    type: 'income' | 'expense';
+    tags?: string[];
     category: Category;
-    deletedAt: Date;
+    type: 'income' | 'expense';
 }

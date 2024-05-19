@@ -21,6 +21,7 @@ import { CategoriesModule } from './categories/categories.module';
     }),
     TransactionsModule,
     CategoriesModule,
+
     
   ],
   controllers: [AppController],

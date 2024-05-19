@@ -28,13 +28,13 @@ let BudgetController = class BudgetController {
         return this.budgetService.findAll();
     }
     findOne(id) {
-        return this.budgetService.findOne(id);
+        return this.budgetService.findOne(+id);
     }
     update(id, updateBudgetDto) {
-        return this.budgetService.update(id, updateBudgetDto);
+        return this.budgetService.update(+id, updateBudgetDto);
     }
     remove(id) {
-        return this.budgetService.remove(id);
+        return this.budgetService.remove(+id);
     }
 };
 exports.BudgetController = BudgetController;
@@ -55,7 +55,7 @@ __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], BudgetController.prototype, "findOne", null);
 __decorate([
@@ -63,14 +63,14 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, update_budget_dto_1.UpdateBudgetDto]),
+    __metadata("design:paramtypes", [String, update_budget_dto_1.UpdateBudgetDto]),
     __metadata("design:returntype", void 0)
 ], BudgetController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], BudgetController.prototype, "remove", null);
 exports.BudgetController = BudgetController = __decorate([

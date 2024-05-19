@@ -1,38 +1,33 @@
-
-import { IsOptional } from "class-validator";
-import { Category } from "src/categories/entities/category.entity";
-import { Column, DeleteDateColumn, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+// import { User } from './user.entity';
+import { Category } from 'src/categories/entities/category.entity';
 
 @Entity()
 export class Transaction {
-@PrimaryGeneratedColumn()
-id:number;
-@Column()
-name:string;
-@Column()
-@IsOptional()
-description:string;
-@Column('decimal')
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Column()
+  name: string;
+
+  @Column({ nullable: true })
+  description?: string;
+
+  @Column('decimal')
   amount: number;
-// @Column()
-// category:string;
-@Column()
-//date:Date;
-date:string
 
-@Column()
-type: 'income' | 'expense';
+  @Column()
+  date: string;
 
-@ManyToOne(()=>Category,(category)=>category.id,{
-    eager:true,
- })
-category:Category;
+  @Column({ type: 'simple-array', nullable: true })
+  tags?: string[];
 
-@DeleteDateColumn()
-deletedAt: Date;
+  @ManyToOne(() => Category)
+  category: Category;
 
+  @Column()
+  type: 'income' | 'expense';
 
-
-
-
+  // @ManyToOne(() => User, user => user.transactions)
+  // user: User;
 }

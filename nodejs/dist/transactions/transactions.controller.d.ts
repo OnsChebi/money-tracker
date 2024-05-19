@@ -9,18 +9,13 @@ export declare class TransactionsController {
     findOne(id: number): Promise<import("./entities/transaction.entity").Transaction>;
     update(id: number, updateTransactionDto: UpdateTransactionDto): Promise<{
         category: import("../categories/entities/category.entity").Category;
-        apply(this: Function, thisArg: any, argArray?: any): any;
-        call(this: Function, thisArg: any, ...argArray: any[]): any;
-        bind(this: Function, thisArg: any, ...argArray: any[]): any;
-        toString(): string;
-        length: number;
-        arguments: any;
-        caller: Function;
         name: string;
-        [Symbol.hasInstance](value: any): boolean;
+        description?: string;
+        amount: number;
+        date: string;
+        tags?: string[];
+        type: "income" | "expense";
         id: number;
-        transactions: import("./entities/transaction.entity").Transaction[];
-        deletedAt: Date;
     } & import("./entities/transaction.entity").Transaction>;
     remove(id: number): Promise<import("typeorm").UpdateResult>;
 }

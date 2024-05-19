@@ -34,7 +34,18 @@ __decorate([
     __metadata("design:type", String)
 ], CreateTransactionDto.prototype, "date", void 0);
 __decorate([
+    (0, class_validator_1.IsString)({ each: true }),
+    (0, class_validator_1.IsOptional)(),
+    __metadata("design:type", Array)
+], CreateTransactionDto.prototype, "tags", void 0);
+__decorate([
     (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreateTransactionDto.prototype, "category", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsIn)(['income', 'expense']),
     __metadata("design:type", String)
 ], CreateTransactionDto.prototype, "type", void 0);
 //# sourceMappingURL=create-transaction.dto.js.map

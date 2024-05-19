@@ -3,7 +3,7 @@ export declare class CreateTransactionDto {
     description?: string;
     amount: number;
     date: string;
-    tags: string[];
+    tags?: string[];
     category: string;
     type: 'income' | 'expense';
 }

@@ -14,7 +14,6 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TransactionsService = void 0;
 const common_1 = require("@nestjs/common");
-const update_transaction_dto_1 = require("./dto/update-transaction.dto");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const transaction_entity_1 = require("./entities/transaction.entity");
@@ -37,7 +36,7 @@ let TransactionsService = class TransactionsService {
             amount: createTransactionDto.amount,
             date: createTransactionDto.date,
             type: createTransactionDto.type,
-            category
+            category,
         });
         return await this.transactionRepository.save(transaction);
     }
@@ -48,9 +47,9 @@ let TransactionsService = class TransactionsService {
         return await this.transactionRepository.findOneBy({ id });
     }
     async update(id, updateTransactionDto) {
-        const transaction = await this.categoriesRepository.findOneBy({ id });
+        const transaction = await this.transactionRepository.findOneBy({ id });
         if (!transaction) {
-            throw new common_1.BadRequestException('transaction not found');
+            throw new common_1.BadRequestException('Transaction not found');
         }
         let category;
         if (updateTransactionDto.category) {
@@ -58,13 +57,13 @@ let TransactionsService = class TransactionsService {
                 name: updateTransactionDto.category,
             });
             if (!category) {
-                throw new common_1.BadRequestException('category not found');
+                throw new common_1.BadRequestException('Category not found');
             }
         }
         return await this.transactionRepository.save({
             ...transaction,
-            ...update_transaction_dto_1.UpdateTransactionDto,
-            category,
+            ...updateTransactionDto,
+            category: category ? category : transaction.category,
         });
     }
     async remove(id) {

@@ -12,18 +12,13 @@ export declare class TransactionsService {
     findOne(id: number): Promise<Transaction>;
     update(id: number, updateTransactionDto: UpdateTransactionDto): Promise<{
         category: Category;
-        apply(this: Function, thisArg: any, argArray?: any): any;
-        call(this: Function, thisArg: any, ...argArray: any[]): any;
-        bind(this: Function, thisArg: any, ...argArray: any[]): any;
-        toString(): string;
-        length: number;
-        arguments: any;
-        caller: Function;
         name: string;
-        [Symbol.hasInstance](value: any): boolean;
+        description?: string;
+        amount: number;
+        date: string;
+        tags?: string[];
+        type: "income" | "expense";
         id: number;
-        transactions: Transaction[];
-        deletedAt: Date;
     } & Transaction>;
     remove(id: number): Promise<import("typeorm").UpdateResult>;
 }
