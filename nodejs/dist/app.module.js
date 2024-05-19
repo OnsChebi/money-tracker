@@ -14,6 +14,7 @@ const transactions_module_1 = require("./transactions/transactions.module");
 const config_1 = require("@nestjs/config");
 const typeorm_1 = require("@nestjs/typeorm");
 const categories_module_1 = require("./categories/categories.module");
+const bugdet_module_1 = require("./bugdet/bugdet.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -28,7 +29,7 @@ exports.AppModule = AppModule = __decorate([
                 database: "money_tracker",
                 autoLoadEntities: true,
                 synchronize: true
-            }), categories_module_1.CategoriesModule],
+            }), categories_module_1.CategoriesModule, bugdet_module_1.BudgetModule],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })

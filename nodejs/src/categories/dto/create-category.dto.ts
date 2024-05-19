@@ -6,4 +6,6 @@ export class CreateCategoryDto {
     name:string;
     // @IsOptional()
     // icon:string;
+    
+    budgetAmount: number;
 }

@@ -5,6 +5,8 @@ import { TransactionsModule } from './transactions/transactions.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CategoriesModule } from './categories/categories.module';
+import { BudgetModule } from './bugdet/bugdet.module';
+
 
 @Module({
   imports: [ConfigModule.forRoot({ isGlobal: true }),TransactionsModule,TypeOrmModule.forRoot({
@@ -16,7 +18,7 @@ import { CategoriesModule } from './categories/categories.module';
     database:"money_tracker",
     autoLoadEntities:true,
     synchronize:true
-  }), CategoriesModule],
+  }), CategoriesModule, BudgetModule],
   controllers: [AppController],
   providers: [AppService],
 })

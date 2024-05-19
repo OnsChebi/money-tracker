@@ -11,71 +11,71 @@ export class TransactionsService {
 
 constructor(
   @InjectRepository(Transaction)
-  private transactionUserRepository:Repository<Transaction>,
-  // @InjectRepository(Category)
-  // private categoriesRepository :Repository<Category>
+  private transactionRepository:Repository<Transaction>,
+  @InjectRepository(Category)
+  private categoriesRepository :Repository<Category>
 ){}
 
 
   async create(createTransactionDto: CreateTransactionDto) {
-  //   const category=await this.categoriesRepository.findOneBy({
-  //     name:createTransactionDto.category,
-  //   });
+     const category=await this.categoriesRepository.findOneBy({
+      name:createTransactionDto.category,
+    });
   //   console.log(category);
-  //   if(!category){
-  //     throw new BadRequestException('Category not found');
-  //   }
+   if(!category){
+      throw new BadRequestException('Category not found');
+   }
  
-  //  return await this.categoriesRepository.save({
-  //   name:createTransactionDto.name,
-  //   description:createTransactionDto.description,
-  //   amount:createTransactionDto.amount,
-  //   date:createTransactionDto.date,
-  //   category:category.id
-  // });
+   const transaction=this.transactionRepository.create({
+    name:createTransactionDto.name,
+    description:createTransactionDto.description,
+    amount:createTransactionDto.amount,
+    date:createTransactionDto.date,
+    type:createTransactionDto.type,
+    category
+  });
 
-  const transaction=this.transactionUserRepository.create(createTransactionDto);
-  return await this.transactionUserRepository.save(transaction)
+  return await this.transactionRepository.save(transaction)
   }
 
   async findAll() {
-   // console.log(this.transactionUserRepository.createQueryBuilder('transaction').getSql())
-    return await this.transactionUserRepository.find();
+   // console.log(this.transactionRepository.createQueryBuilder('transaction').getSql())
+    return await this.transactionRepository.find();
   }
 
   async findOne(id: number) {
-    return await this.transactionUserRepository.findOneBy({id});
+    return await this.transactionRepository.findOneBy({id});
   }
 
-  // async update(id: number, updateTransactionDto: UpdateTransactionDto) {
-  //   const transaction=await this.categoriesRepository.findOneBy({id});
+  async update(id: number, updateTransactionDto: UpdateTransactionDto) {
+    const transaction=await this.categoriesRepository.findOneBy({id});
 
-  //   if(!transaction){
-  //     throw new BadRequestException('transaction not found');
-  //   }
-  //   let category;
-  //   if(updateTransactionDto.category){
-  //     category=await this.categoriesRepository.findOneBy({
-  //       name:updateTransactionDto.category,
-  //     });
+    if(!transaction){
+      throw new BadRequestException('transaction not found');
+    }
+    let category:Category;
+    if(updateTransactionDto.category){
+      category=await this.categoriesRepository.findOneBy({
+        name:updateTransactionDto.category,
+      });
 
-  //     if(!category){
-  //       throw new BadRequestException('category not found');
-  //     }
+      if(!category){
+        throw new BadRequestException('category not found');
+      }
 
-  //   }
+    }
 
 
-  //   return await this.transactionUserRepository.save({
-  //     ...transaction,
-  //     ...UpdateTransactionDto,
-  //     category,
-  //   });
+    return await this.transactionRepository.save({
+      ...transaction,
+      ...UpdateTransactionDto,
+      category,
+    });
+  }
+  // async update(id: number,updateTransactionDto:UpdateTransactionDto){
+  //  return await this.transactionRepository.update(id,updateTransactionDto); 
   // }
-  async update(id: number,updateTransactionDto:UpdateTransactionDto){
-   return await this.transactionUserRepository.update(id,updateTransactionDto); 
-  }
   async remove(id: number) {
-    return await this.transactionUserRepository.softDelete(id);
+    return await this.transactionRepository.softDelete(id);
   }
 }

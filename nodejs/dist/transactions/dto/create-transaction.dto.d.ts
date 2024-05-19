@@ -1,7 +1,9 @@
 export declare class CreateTransactionDto {
     name: string;
-    description: string;
+    description?: string;
     amount: number;
     date: string;
     tags: string[];
+    category: string;
+    type: 'income' | 'expense';
 }

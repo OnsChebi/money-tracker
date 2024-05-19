@@ -10,6 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Category = void 0;
+const bugdet_entity_1 = require("../../bugdet/entities/bugdet.entity");
+const transaction_entity_1 = require("../../transactions/entities/transaction.entity");
 const typeorm_1 = require("typeorm");
 let Category = class Category {
 };
@@ -22,6 +24,14 @@ __decorate([
     (0, typeorm_1.Column)({ unique: true }),
     __metadata("design:type", String)
 ], Category.prototype, "name", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => transaction_entity_1.Transaction, (transaction) => transaction.category),
+    __metadata("design:type", Array)
+], Category.prototype, "transactions", void 0);
+__decorate([
+    (0, typeorm_1.OneToOne)(() => bugdet_entity_1.Budget, budget => budget.category),
+    __metadata("design:type", bugdet_entity_1.Budget)
+], Category.prototype, "budget", void 0);
 __decorate([
     (0, typeorm_1.DeleteDateColumn)(),
     __metadata("design:type", Date)

@@ -1,0 +1,30 @@
+<h1 class="mb-4 text-4xl  leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-black text-center">Categories</h1>
+<mat-tab-group>
+    <mat-tab label="Expenses">
+        <div class="col-5 category">
+            <button class="btn btn-success">Add Category
+                <mat-icon>add_circle</mat-icon>
+            </button>
+            <div class="grid grid-cols-4 gap-4">
+                @for(category of categories;track $index){
+                <button type="button" class="btn btn-light">
+                    <div>
+                        <mat-icon>{{category.icon}}</mat-icon>
+                        <h3 class="text-xl font-bold text-gray-800 mb-1">{{category.title}}</h3>
+                    </div>
+            </button>
+            }
+            </div>
+        </div>
+        
+        <div class="col-7">
+            @if (selectedCategory) {
+                <!-- <app-mange-cat [selectedCat]="selectedCategory"></app-mange-cat> -->
+            
+                } @else {
+                <h3>Choose category to update it ...</h3>
+                }
+        </div> 
+    </mat-tab>
+    <mat-tab label="Income"> Content 2 </mat-tab>
+</mat-tab-group>

@@ -5,7 +5,8 @@ export class CreateTransactionDto {
     @IsNotEmpty()
     name:string;
     @IsString()
-    description:string;
+    @IsOptional()
+    description?:string;
     @IsNotEmpty()
     @IsNumber()
     amount:number;
@@ -14,7 +15,9 @@ export class CreateTransactionDto {
     //date:Date;
     date:string;
     tags:string[];
-    // @IsOptional()
-    // category:string;
+    
+    category:string;
+    @IsString()
+    type: 'income' | 'expense';
 
 }

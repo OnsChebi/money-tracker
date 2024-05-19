@@ -15,7 +15,7 @@ export class SidebarComponent {
     
   }
   navData=[
-    {routeLink: 'chart',
+    {routeLink: 'dashboard',
     icon: 'donut_small',
     text: 'Dashboard'},
     {
@@ -25,7 +25,7 @@ export class SidebarComponent {
     },
     {
   
-      routeLink: 'category',
+      routeLink: 'categories',
       icon: ' dashboard',
       text: 'Categories'
     },

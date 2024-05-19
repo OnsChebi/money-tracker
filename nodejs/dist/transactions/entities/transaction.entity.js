@@ -10,6 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Transaction = void 0;
+const class_validator_1 = require("class-validator");
+const category_entity_1 = require("../../categories/entities/category.entity");
 const typeorm_1 = require("typeorm");
 let Transaction = class Transaction {
 };
@@ -24,16 +26,27 @@ __decorate([
 ], Transaction.prototype, "name", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
+    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", String)
 ], Transaction.prototype, "description", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)('decimal'),
     __metadata("design:type", Number)
 ], Transaction.prototype, "amount", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Transaction.prototype, "date", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Transaction.prototype, "type", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => category_entity_1.Category, (category) => category.id, {
+        eager: true,
+    }),
+    __metadata("design:type", category_entity_1.Category)
+], Transaction.prototype, "category", void 0);
 __decorate([
     (0, typeorm_1.DeleteDateColumn)(),
     __metadata("design:type", Date)

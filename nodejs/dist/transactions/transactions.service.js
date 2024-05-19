@@ -14,34 +14,69 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TransactionsService = void 0;
 const common_1 = require("@nestjs/common");
+const update_transaction_dto_1 = require("./dto/update-transaction.dto");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const transaction_entity_1 = require("./entities/transaction.entity");
+const category_entity_1 = require("../categories/entities/category.entity");
 let TransactionsService = class TransactionsService {
-    constructor(transactionUserRepository) {
-        this.transactionUserRepository = transactionUserRepository;
+    constructor(transactionRepository, categoriesRepository) {
+        this.transactionRepository = transactionRepository;
+        this.categoriesRepository = categoriesRepository;
     }
     async create(createTransactionDto) {
-        const transaction = this.transactionUserRepository.create(createTransactionDto);
-        return await this.transactionUserRepository.save(transaction);
+        const category = await this.categoriesRepository.findOneBy({
+            name: createTransactionDto.category,
+        });
+        if (!category) {
+            throw new common_1.BadRequestException('Category not found');
+        }
+        const transaction = this.transactionRepository.create({
+            name: createTransactionDto.name,
+            description: createTransactionDto.description,
+            amount: createTransactionDto.amount,
+            date: createTransactionDto.date,
+            type: createTransactionDto.type,
+            category
+        });
+        return await this.transactionRepository.save(transaction);
     }
     async findAll() {
-        return await this.transactionUserRepository.find();
+        return await this.transactionRepository.find();
     }
     async findOne(id) {
-        return await this.transactionUserRepository.findOneBy({ id });
+        return await this.transactionRepository.findOneBy({ id });
     }
     async update(id, updateTransactionDto) {
-        return await this.transactionUserRepository.update(id, updateTransactionDto);
+        const transaction = await this.categoriesRepository.findOneBy({ id });
+        if (!transaction) {
+            throw new common_1.BadRequestException('transaction not found');
+        }
+        let category;
+        if (updateTransactionDto.category) {
+            category = await this.categoriesRepository.findOneBy({
+                name: updateTransactionDto.category,
+            });
+            if (!category) {
+                throw new common_1.BadRequestException('category not found');
+            }
+        }
+        return await this.transactionRepository.save({
+            ...transaction,
+            ...update_transaction_dto_1.UpdateTransactionDto,
+            category,
+        });
     }
     async remove(id) {
-        return await this.transactionUserRepository.softDelete(id);
+        return await this.transactionRepository.softDelete(id);
     }
 };
 exports.TransactionsService = TransactionsService;
 exports.TransactionsService = TransactionsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(transaction_entity_1.Transaction)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __param(1, (0, typeorm_1.InjectRepository)(category_entity_1.Category)),
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.Repository])
 ], TransactionsService);
 //# sourceMappingURL=transactions.service.js.map

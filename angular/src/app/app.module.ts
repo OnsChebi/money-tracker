@@ -9,19 +9,31 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { CardLineChartComponent } from './components/card-line-chart/card-line-chart.component';
+import { CategoriesComponent } from './components/categories/categories.component';
+import {MatTabsModule} from '@angular/material/tabs';
+import { BillsComponent } from './components/bills/bills.component';
+import { MangeCatComponent } from './components/mange-cat/mange-cat.component';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
     SidebarComponent,
     NavbarComponent,
-    DashboardComponent
+    DashboardComponent,
+    CardLineChartComponent,
+    CategoriesComponent,
+    BillsComponent,
+    MangeCatComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     MatIconModule,
     MatToolbarModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTabsModule,
+    FormsModule
   ],
   providers: [
     provideAnimationsAsync()

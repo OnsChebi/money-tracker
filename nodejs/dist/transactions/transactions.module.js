@@ -12,14 +12,17 @@ const transactions_service_1 = require("./transactions.service");
 const transactions_controller_1 = require("./transactions.controller");
 const typeorm_1 = require("@nestjs/typeorm");
 const transaction_entity_1 = require("./entities/transaction.entity");
+const categories_module_1 = require("../categories/categories.module");
+const categories_service_1 = require("../categories/categories.service");
 let TransactionsModule = class TransactionsModule {
 };
 exports.TransactionsModule = TransactionsModule;
 exports.TransactionsModule = TransactionsModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([transaction_entity_1.Transaction])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([transaction_entity_1.Transaction]), categories_module_1.CategoriesModule],
         controllers: [transactions_controller_1.TransactionsController],
-        providers: [transactions_service_1.TransactionsService],
+        providers: [transactions_service_1.TransactionsService, categories_service_1.CategoriesService],
+        exports: [],
     })
 ], TransactionsModule);
 //# sourceMappingURL=transactions.module.js.map
