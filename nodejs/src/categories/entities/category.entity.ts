@@ -1,6 +1,6 @@
 
 
-import { Budget } from "src/bugdet/entities/budget.entity";
+import { Budget } from "src/budget/entities/budget.entity";
 import { Transaction } from "src/transactions/entities/transaction.entity";
 import { Column, DeleteDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
