@@ -20,7 +20,7 @@ export declare class TransactionsController {
         [Symbol.hasInstance](value: any): boolean;
         id: number;
         transactions: import("./entities/transaction.entity").Transaction[];
-        budget: import("../bugdet/entities/bugdet.entity").Budget;
+        budget: Budget;
         deletedAt: Date;
     } & import("./entities/transaction.entity").Transaction>;
     remove(id: number): Promise<import("typeorm").UpdateResult>;

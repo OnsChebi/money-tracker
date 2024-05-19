@@ -4,7 +4,8 @@ import { Repository } from 'typeorm';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { Category } from './entities/category.entity';
-import { Budget } from 'src/bugdet/entities/bugdet.entity';
+import { Budget } from 'src/bugdet/entities/budget.entity';
+
 
 @Injectable()
 export class CategoriesService {

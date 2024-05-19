@@ -3,7 +3,8 @@ import { CategoriesService } from './categories.service';
 import { CategoriesController } from './categories.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Category } from './entities/category.entity';
-import { BudgetModule } from 'src/bugdet/bugdet.module';
+import { BudgetModule } from 'src/bugdet/budget.module';
+
 
 @Module({
   imports: [TypeOrmModule.forFeature([Category]),BudgetModule],

@@ -14,22 +14,28 @@ const transactions_module_1 = require("./transactions/transactions.module");
 const config_1 = require("@nestjs/config");
 const typeorm_1 = require("@nestjs/typeorm");
 const categories_module_1 = require("./categories/categories.module");
-const bugdet_module_1 = require("./bugdet/bugdet.module");
+const budget_module_1 = require("./bugdet/budget.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [config_1.ConfigModule.forRoot({ isGlobal: true }), transactions_module_1.TransactionsModule, typeorm_1.TypeOrmModule.forRoot({
-                type: "mysql",
-                host: "localhost",
+        imports: [
+            config_1.ConfigModule.forRoot({ isGlobal: true }),
+            transactions_module_1.TransactionsModule,
+            typeorm_1.TypeOrmModule.forRoot({
+                type: 'mysql',
+                host: 'localhost',
                 port: 3306,
-                username: "root",
-                password: "root",
-                database: "money_tracker",
+                username: 'root',
+                password: 'root',
+                database: 'money_tracker',
                 autoLoadEntities: true,
-                synchronize: true
-            }), categories_module_1.CategoriesModule, bugdet_module_1.BudgetModule],
+                synchronize: true,
+            }),
+            categories_module_1.CategoriesModule,
+            budget_module_1.BudgetModule,
+        ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })

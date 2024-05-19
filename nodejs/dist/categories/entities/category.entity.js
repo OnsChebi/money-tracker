@@ -8,9 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Category = void 0;
-const bugdet_entity_1 = require("../../bugdet/entities/bugdet.entity");
+const budget_entity_1 = require("src/bugdet/entities/budget.entity");
 const transaction_entity_1 = require("../../transactions/entities/transaction.entity");
 const typeorm_1 = require("typeorm");
 let Category = class Category {
@@ -29,8 +30,8 @@ __decorate([
     __metadata("design:type", Array)
 ], Category.prototype, "transactions", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => bugdet_entity_1.Budget, budget => budget.category),
-    __metadata("design:type", bugdet_entity_1.Budget)
+    (0, typeorm_1.OneToOne)(() => budget_entity_1.Budget, budget => budget.category),
+    __metadata("design:type", typeof (_a = typeof budget_entity_1.Budget !== "undefined" && budget_entity_1.Budget) === "function" ? _a : Object)
 ], Category.prototype, "budget", void 0);
 __decorate([
     (0, typeorm_1.DeleteDateColumn)(),

@@ -5,20 +5,28 @@ import { TransactionsModule } from './transactions/transactions.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CategoriesModule } from './categories/categories.module';
-import { BudgetModule } from './bugdet/bugdet.module';
+import { BudgetModule } from './bugdet/budget.module';
+import { BudgetModule } from './budget/budget.module';
+
 
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }),TransactionsModule,TypeOrmModule.forRoot({
-    type:"mysql",
-    host:"localhost",
-    port:3306,
-    username:"root",
-    password:"root",
-    database:"money_tracker",
-    autoLoadEntities:true,
-    synchronize:true
-  }), CategoriesModule, BudgetModule],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    TransactionsModule,
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: 'root',
+      database: 'money_tracker',
+      autoLoadEntities: true,
+      synchronize: true,
+    }),
+    CategoriesModule,
+    BudgetModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

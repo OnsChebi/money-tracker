@@ -17,7 +17,7 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const category_entity_1 = require("./entities/category.entity");
-const bugdet_entity_1 = require("../bugdet/entities/bugdet.entity");
+const budget_entity_1 = require("src/bugdet/entities/budget.entity");
 let CategoriesService = class CategoriesService {
     constructor(categoriesRepository, budgetRepository) {
         this.categoriesRepository = categoriesRepository;
@@ -67,7 +67,7 @@ exports.CategoriesService = CategoriesService;
 exports.CategoriesService = CategoriesService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(category_entity_1.Category)),
-    __param(1, (0, typeorm_1.InjectRepository)(bugdet_entity_1.Budget)),
+    __param(1, (0, typeorm_1.InjectRepository)(budget_entity_1.Budget)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
         typeorm_2.Repository])
 ], CategoriesService);
