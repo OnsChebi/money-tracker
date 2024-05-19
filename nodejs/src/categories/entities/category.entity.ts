@@ -1,6 +1,4 @@
 
-
-import { Budget } from "src/budget/entities/budget.entity";
 import { Transaction } from "src/transactions/entities/transaction.entity";
 import { Column, DeleteDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
@@ -14,8 +12,6 @@ export class Category {
     // icon:string;
      @OneToMany(()=>Transaction,(transaction)=>transaction.category)
      transactions:Transaction[];
-     @OneToOne(() => Budget, budget => budget.category)
-        budget: Budget;
      @DeleteDateColumn()
     deletedAt: Date;
 }

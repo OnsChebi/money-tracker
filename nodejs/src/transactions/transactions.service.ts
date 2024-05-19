@@ -1,10 +1,11 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable, forwardRef } from '@nestjs/common';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Transaction } from './entities/transaction.entity';
 import { Category } from 'src/categories/entities/category.entity';
+import { CategoriesService } from 'src/categories/categories.service';
 
 @Injectable()
 export class TransactionsService {
@@ -13,7 +14,8 @@ constructor(
   @InjectRepository(Transaction)
   private transactionRepository:Repository<Transaction>,
   @InjectRepository(Category)
-  private categoriesRepository :Repository<Category>
+  private categoriesRepository :Repository<Category>,
+ 
 ){}
 
 

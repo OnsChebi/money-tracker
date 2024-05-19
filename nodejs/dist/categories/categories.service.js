@@ -17,20 +17,13 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const category_entity_1 = require("./entities/category.entity");
-const budget_entity_1 = require("src/bugdet/entities/budget.entity");
 let CategoriesService = class CategoriesService {
-    constructor(categoriesRepository, budgetRepository) {
+    constructor(categoriesRepository) {
         this.categoriesRepository = categoriesRepository;
-        this.budgetRepository = budgetRepository;
     }
     async create(createCategoryDto) {
-        const { name, budgetAmount } = createCategoryDto;
-        const category = this.categoriesRepository.create({ name });
-        await this.categoriesRepository.save(category);
-        const budget = this.budgetRepository.create({ amount: budgetAmount, category });
-        await this.budgetRepository.save(budget);
-        category.budget = budget;
-        return this.categoriesRepository.save(category);
+        const category = this.categoriesRepository.create(createCategoryDto);
+        return await this.categoriesRepository.save(category);
     }
     async findAll() {
         return await this.categoriesRepository.find({ relations: ['budget', 'transactions'] });
@@ -39,25 +32,7 @@ let CategoriesService = class CategoriesService {
         return await this.categoriesRepository.findOne({ where: { id }, relations: ['budget', 'transactions'] });
     }
     async update(id, updateCategoryDto) {
-        const category = await this.categoriesRepository.findOne({ where: { id }, relations: ['budget'] });
-        if (!category) {
-            throw new Error('Category not found');
-        }
-        const { name, budgetAmount } = updateCategoryDto;
-        if (name)
-            category.name = name;
-        if (budgetAmount !== undefined) {
-            if (category.budget) {
-                category.budget.amount = budgetAmount;
-                await this.budgetRepository.save(category.budget);
-            }
-            else {
-                const budget = this.budgetRepository.create({ amount: budgetAmount, category });
-                await this.budgetRepository.save(budget);
-                category.budget = budget;
-            }
-        }
-        return this.categoriesRepository.save(category);
+        return await this.categoriesRepository.update(id, updateCategoryDto);
     }
     async remove(id) {
         return await this.categoriesRepository.softDelete(id);
@@ -67,8 +42,6 @@ exports.CategoriesService = CategoriesService;
 exports.CategoriesService = CategoriesService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(category_entity_1.Category)),
-    __param(1, (0, typeorm_1.InjectRepository)(budget_entity_1.Budget)),
-    __metadata("design:paramtypes", [typeorm_2.Repository,
-        typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeorm_2.Repository])
 ], CategoriesService);
 //# sourceMappingURL=categories.service.js.map

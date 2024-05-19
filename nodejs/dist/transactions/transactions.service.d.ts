@@ -23,7 +23,6 @@ export declare class TransactionsService {
         [Symbol.hasInstance](value: any): boolean;
         id: number;
         transactions: Transaction[];
-        budget: Budget;
         deletedAt: Date;
     } & Transaction>;
     remove(id: number): Promise<import("typeorm").UpdateResult>;

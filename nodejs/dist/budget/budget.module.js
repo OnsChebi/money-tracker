@@ -6,23 +6,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CategoriesModule = void 0;
+exports.BudgetModule = void 0;
 const common_1 = require("@nestjs/common");
+const budget_controller_1 = require("./budget.controller");
+const budget_service_1 = require("./budget.service");
+const budget_entity_1 = require("./entities/budget.entity");
 const typeorm_1 = require("@nestjs/typeorm");
-const categories_service_1 = require("./categories.service");
-const categories_controller_1 = require("./categories.controller");
-const category_entity_1 = require("./entities/category.entity");
-let CategoriesModule = class CategoriesModule {
+const categories_module_1 = require("../categories/categories.module");
+let BudgetModule = class BudgetModule {
 };
-exports.CategoriesModule = CategoriesModule;
-exports.CategoriesModule = CategoriesModule = __decorate([
+exports.BudgetModule = BudgetModule;
+exports.BudgetModule = BudgetModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forFeature([category_entity_1.Category]),
+            typeorm_1.TypeOrmModule.forFeature([budget_entity_1.Budget]),
+            (0, common_1.forwardRef)(() => categories_module_1.CategoriesModule),
         ],
-        controllers: [categories_controller_1.CategoriesController],
-        providers: [categories_service_1.CategoriesService],
-        exports: [typeorm_1.TypeOrmModule],
+        controllers: [budget_controller_1.BudgetController],
+        providers: [budget_service_1.BudgetService],
+        exports: [budget_service_1.BudgetService],
     })
-], CategoriesModule);
-//# sourceMappingURL=categories.module.js.map
+], BudgetModule);
+//# sourceMappingURL=budget.module.js.map

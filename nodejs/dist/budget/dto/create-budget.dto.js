@@ -9,19 +9,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateCategoryDto = void 0;
+exports.CreateBudgetDto = void 0;
 const class_validator_1 = require("class-validator");
-class CreateCategoryDto {
+class CreateBudgetDto {
 }
-exports.CreateCategoryDto = CreateCategoryDto;
+exports.CreateBudgetDto = CreateBudgetDto;
 __decorate([
-    (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], CreateCategoryDto.prototype, "name", void 0);
-__decorate([
     (0, class_validator_1.IsNumber)(),
-    (0, class_validator_1.IsOptional)(),
     __metadata("design:type", Number)
-], CreateCategoryDto.prototype, "budgetAmount", void 0);
-//# sourceMappingURL=create-category.dto.js.map
+], CreateBudgetDto.prototype, "budgetAmount", void 0);
+//# sourceMappingURL=create-budget.dto.js.map

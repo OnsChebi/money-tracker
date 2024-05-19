@@ -9,29 +9,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Category = void 0;
-const transaction_entity_1 = require("../../transactions/entities/transaction.entity");
+exports.Budget = void 0;
+const category_entity_1 = require("../../categories/entities/category.entity");
 const typeorm_1 = require("typeorm");
-let Category = class Category {
+let Budget = class Budget {
 };
-exports.Category = Category;
+exports.Budget = Budget;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
-], Category.prototype, "id", void 0);
+], Budget.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ unique: true }),
-    __metadata("design:type", String)
-], Category.prototype, "name", void 0);
+    (0, typeorm_1.Column)('decimal'),
+    __metadata("design:type", Number)
+], Budget.prototype, "amount", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => transaction_entity_1.Transaction, (transaction) => transaction.category),
-    __metadata("design:type", Array)
-], Category.prototype, "transactions", void 0);
+    (0, typeorm_1.OneToOne)(() => category_entity_1.Category, category => category.id, {
+        eager: true,
+    }),
+    (0, typeorm_1.JoinColumn)(),
+    __metadata("design:type", category_entity_1.Category)
+], Budget.prototype, "category", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Date)
+], Budget.prototype, "month", void 0);
 __decorate([
     (0, typeorm_1.DeleteDateColumn)(),
     __metadata("design:type", Date)
-], Category.prototype, "deletedAt", void 0);
-exports.Category = Category = __decorate([
+], Budget.prototype, "deletedAt", void 0);
+exports.Budget = Budget = __decorate([
     (0, typeorm_1.Entity)()
-], Category);
-//# sourceMappingURL=category.entity.js.map
+], Budget);
+//# sourceMappingURL=budget.entity.js.map

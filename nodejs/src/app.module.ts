@@ -5,15 +5,10 @@ import { TransactionsModule } from './transactions/transactions.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CategoriesModule } from './categories/categories.module';
-import { BudgetModule } from './bugdet/budget.module';
-import { BudgetModule } from './budget/budget.module';
-
-
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    TransactionsModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -24,8 +19,9 @@ import { BudgetModule } from './budget/budget.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    TransactionsModule,
     CategoriesModule,
-    BudgetModule,
+    
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -7,6 +7,6 @@ export declare class CategoriesController {
     create(createCategoryDto: CreateCategoryDto): Promise<import("./entities/category.entity").Category>;
     findAll(): Promise<import("./entities/category.entity").Category[]>;
     findOne(id: string): Promise<import("./entities/category.entity").Category>;
-    update(id: string, updateCategoryDto: UpdateCategoryDto): Promise<import("./entities/category.entity").Category>;
+    update(id: string, updateCategoryDto: UpdateCategoryDto): Promise<import("typeorm").UpdateResult>;
     remove(id: string): Promise<import("typeorm").UpdateResult>;
 }
