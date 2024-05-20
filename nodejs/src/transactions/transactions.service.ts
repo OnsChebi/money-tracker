@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Transaction } from './entities/transaction.entity';
 import { Category } from 'src/categories/entities/category.entity';
+import { sanitizeHtml } from 'src/sanitize.helper';
 
 @Injectable()
 export class TransactionsService {
@@ -23,10 +24,11 @@ export class TransactionsService {
     if (!category) {
       throw new BadRequestException('Category not found');
     }
+    const sanitizedDescription = sanitizeHtml(createTransactionDto.description || '');
 
     const transaction = this.transactionRepository.create({
       name: createTransactionDto.name,
-      description: createTransactionDto.description,
+      description: sanitizedDescription,
       amount: createTransactionDto.amount,
       date: createTransactionDto.date,
       type: createTransactionDto.type,

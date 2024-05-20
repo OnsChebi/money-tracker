@@ -5,7 +5,5 @@ export class CreateCategoryDto {
     @IsNotEmpty()
     name: string;
 
-    @IsNumber()
-    @IsOptional()
-    budgetAmount?: number;
+    
 }

@@ -5,7 +5,9 @@ import { TransactionsModule } from './transactions/transactions.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CategoriesModule } from './categories/categories.module';
-import { BudgetModule } from './budget/budget.module';
+
+import { BudgetsModule } from './budget/budget.module';
+import { UsersModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -22,7 +24,8 @@ import { BudgetModule } from './budget/budget.module';
     }),
     TransactionsModule,
     CategoriesModule,
-    BudgetModule,
+    BudgetsModule,
+    UsersModule
 
     
   ],

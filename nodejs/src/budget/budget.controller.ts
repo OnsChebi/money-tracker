@@ -1,34 +1,41 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { BudgetService } from './budget.service';
+// src/budgets/budgets.controller.ts
+import { Controller, Get, Post, Body, Put, Param, Delete, Req } from '@nestjs/common';
+import { Request } from 'express';
 import { CreateBudgetDto } from './dto/create-budget.dto';
 import { UpdateBudgetDto } from './dto/update-budget.dto';
+import { BudgetsService } from './budget.service';
 
-@Controller('budget')
-export class BudgetController {
-  constructor(private readonly budgetService: BudgetService) {}
+@Controller('budgets')
+export class BudgetsController {
+  constructor(private readonly budgetsService: BudgetsService) {}
 
   @Post()
-  create(@Body() createBudgetDto: CreateBudgetDto) {
-    return this.budgetService.create(createBudgetDto);
+  create(@Body() createBudgetDto: CreateBudgetDto, @Req() req: Request) {
+    const userId = (req as any).user.id; 
+    return this.budgetsService.create(createBudgetDto, userId);
   }
 
   @Get()
-  findAll() {
-    return this.budgetService.findAll();
+  findAll(@Req() req: Request) {
+    const userId = (req as any).user.id;
+    return this.budgetsService.findAll(userId);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.budgetService.findOne(+id);
+  findOne(@Param('id') id: number, @Req() req: Request) {
+    const userId = (req as any).user.id;
+    return this.budgetsService.findOne(id, userId);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBudgetDto: UpdateBudgetDto) {
-    return this.budgetService.update(+id, updateBudgetDto);
+  @Put(':id')
+  update(@Param('id') id: number, @Body() updateBudgetDto: UpdateBudgetDto, @Req() req: Request) {
+    const userId = (req as any).user.id;
+    return this.budgetsService.update(id, updateBudgetDto, userId);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.budgetService.remove(+id);
+  remove(@Param('id') id: number, @Req() req: Request) {
+    const userId = (req as any).user.id;
+    return this.budgetsService.remove(id, userId);
   }
 }

@@ -18,6 +18,7 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const transaction_entity_1 = require("./entities/transaction.entity");
 const category_entity_1 = require("../categories/entities/category.entity");
+const sanitize_helper_1 = require("../sanitize.helper");
 let TransactionsService = class TransactionsService {
     constructor(transactionRepository, categoriesRepository) {
         this.transactionRepository = transactionRepository;
@@ -30,9 +31,10 @@ let TransactionsService = class TransactionsService {
         if (!category) {
             throw new common_1.BadRequestException('Category not found');
         }
+        const sanitizedDescription = (0, sanitize_helper_1.sanitizeHtml)(createTransactionDto.description || '');
         const transaction = this.transactionRepository.create({
             name: createTransactionDto.name,
-            description: createTransactionDto.description,
+            description: sanitizedDescription,
             amount: createTransactionDto.amount,
             date: createTransactionDto.date,
             type: createTransactionDto.type,

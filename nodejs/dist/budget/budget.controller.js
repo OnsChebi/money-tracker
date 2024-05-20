@@ -12,69 +12,79 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BudgetController = void 0;
+exports.BudgetsController = void 0;
 const common_1 = require("@nestjs/common");
-const budget_service_1 = require("./budget.service");
 const create_budget_dto_1 = require("./dto/create-budget.dto");
 const update_budget_dto_1 = require("./dto/update-budget.dto");
-let BudgetController = class BudgetController {
-    constructor(budgetService) {
-        this.budgetService = budgetService;
+const budget_service_1 = require("./budget.service");
+let BudgetsController = class BudgetsController {
+    constructor(budgetsService) {
+        this.budgetsService = budgetsService;
     }
-    create(createBudgetDto) {
-        return this.budgetService.create(createBudgetDto);
+    create(createBudgetDto, req) {
+        const userId = req.user.id;
+        return this.budgetsService.create(createBudgetDto, userId);
     }
-    findAll() {
-        return this.budgetService.findAll();
+    findAll(req) {
+        const userId = req.user.id;
+        return this.budgetsService.findAll(userId);
     }
-    findOne(id) {
-        return this.budgetService.findOne(+id);
+    findOne(id, req) {
+        const userId = req.user.id;
+        return this.budgetsService.findOne(id, userId);
     }
-    update(id, updateBudgetDto) {
-        return this.budgetService.update(+id, updateBudgetDto);
+    update(id, updateBudgetDto, req) {
+        const userId = req.user.id;
+        return this.budgetsService.update(id, updateBudgetDto, userId);
     }
-    remove(id) {
-        return this.budgetService.remove(+id);
+    remove(id, req) {
+        const userId = req.user.id;
+        return this.budgetsService.remove(id, userId);
     }
 };
-exports.BudgetController = BudgetController;
+exports.BudgetsController = BudgetsController;
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_budget_dto_1.CreateBudgetDto]),
+    __metadata("design:paramtypes", [create_budget_dto_1.CreateBudgetDto, Object]),
     __metadata("design:returntype", void 0)
-], BudgetController.prototype, "create", null);
+], BudgetsController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
+    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
-], BudgetController.prototype, "findAll", null);
+], BudgetsController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Number, Object]),
     __metadata("design:returntype", void 0)
-], BudgetController.prototype, "findOne", null);
+], BudgetsController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
+    (0, common_1.Put)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, update_budget_dto_1.UpdateBudgetDto]),
+    __metadata("design:paramtypes", [Number, update_budget_dto_1.UpdateBudgetDto, Object]),
     __metadata("design:returntype", void 0)
-], BudgetController.prototype, "update", null);
+], BudgetsController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(':id'),
     __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Number, Object]),
     __metadata("design:returntype", void 0)
-], BudgetController.prototype, "remove", null);
-exports.BudgetController = BudgetController = __decorate([
-    (0, common_1.Controller)('budget'),
-    __metadata("design:paramtypes", [budget_service_1.BudgetService])
-], BudgetController);
+], BudgetsController.prototype, "remove", null);
+exports.BudgetsController = BudgetsController = __decorate([
+    (0, common_1.Controller)('budgets'),
+    __metadata("design:paramtypes", [budget_service_1.BudgetsService])
+], BudgetsController);
 //# sourceMappingURL=budget.controller.js.map

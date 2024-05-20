@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Transaction = void 0;
 const typeorm_1 = require("typeorm");
 const category_entity_1 = require("../../categories/entities/category.entity");
+const user_entity_1 = require("../../user/entities/user.entity");
 let Transaction = class Transaction {
 };
 exports.Transaction = Transaction;
@@ -36,17 +37,17 @@ __decorate([
     __metadata("design:type", String)
 ], Transaction.prototype, "date", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ type: 'simple-array', nullable: true }),
-    __metadata("design:type", Array)
-], Transaction.prototype, "tags", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => category_entity_1.Category),
-    __metadata("design:type", category_entity_1.Category)
-], Transaction.prototype, "category", void 0);
-__decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Transaction.prototype, "type", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.User, user => user.transactions),
+    __metadata("design:type", user_entity_1.User)
+], Transaction.prototype, "user", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => category_entity_1.Category, category => category.transactions),
+    __metadata("design:type", category_entity_1.Category)
+], Transaction.prototype, "category", void 0);
 exports.Transaction = Transaction = __decorate([
     (0, typeorm_1.Entity)()
 ], Transaction);

@@ -13,12 +13,13 @@ export declare class TransactionsService {
     update(id: number, updateTransactionDto: UpdateTransactionDto): Promise<{
         category: Category;
         name: string;
-        description?: string;
+        description: string;
         amount: number;
         date: string;
         tags?: string[];
         type: "income" | "expense";
         id: number;
+        user: import("../user/entities/user.entity").User;
     } & Transaction>;
     remove(id: number): Promise<import("typeorm").UpdateResult>;
 }

@@ -1,12 +1,13 @@
-import { BudgetService } from './budget.service';
+import { Request } from 'express';
 import { CreateBudgetDto } from './dto/create-budget.dto';
 import { UpdateBudgetDto } from './dto/update-budget.dto';
-export declare class BudgetController {
-    private readonly budgetService;
-    constructor(budgetService: BudgetService);
-    create(createBudgetDto: CreateBudgetDto): string;
-    findAll(): string;
-    findOne(id: string): string;
-    update(id: string, updateBudgetDto: UpdateBudgetDto): string;
-    remove(id: string): string;
+import { BudgetsService } from './budget.service';
+export declare class BudgetsController {
+    private readonly budgetsService;
+    constructor(budgetsService: BudgetsService);
+    create(createBudgetDto: CreateBudgetDto, req: Request): Promise<import("./entities/budget.entity").Budget>;
+    findAll(req: Request): Promise<import("./entities/budget.entity").Budget[]>;
+    findOne(id: number, req: Request): Promise<import("./entities/budget.entity").Budget>;
+    update(id: number, updateBudgetDto: UpdateBudgetDto, req: Request): Promise<import("./entities/budget.entity").Budget>;
+    remove(id: number, req: Request): Promise<import("./entities/budget.entity").Budget>;
 }

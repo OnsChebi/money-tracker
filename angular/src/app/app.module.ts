@@ -15,6 +15,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { BillsComponent } from './components/bills/bills.component';
 import { MangeCatComponent } from './components/mange-cat/mange-cat.component';
 import { FormsModule } from '@angular/forms';
+import { SigninComponent } from './components/signin/signin.component';
+import { SignupComponent } from './components/signup/signup.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +26,9 @@ import { FormsModule } from '@angular/forms';
     CardLineChartComponent,
     CategoriesComponent,
     BillsComponent,
-    MangeCatComponent
+    MangeCatComponent,
+    SigninComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
