@@ -8,7 +8,7 @@ import { Category } from '../../models/Category';
 })
 export class CategoriesComponent {
   categories:Category[]=[];
-  selectedCategory:Category;
+  // selectedCategory:Category;
 
  // selectedCategory:Category;
 
