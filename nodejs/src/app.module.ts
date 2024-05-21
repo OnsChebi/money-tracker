@@ -19,7 +19,7 @@ import { AuthModule } from './auth/auth.module';
       port: parseInt(process.env.DB_PORT, 10) || 3306,
       username: process.env.DB_USERNAME || 'root',
       password: process.env.DB_PASSWORD || 'root',
-      database: process.env.DB_DATABASE || 'money_tracker',
+      database: process.env.DB_DATABASE || 'test',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),

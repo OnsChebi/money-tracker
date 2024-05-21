@@ -23,13 +23,13 @@ let CategoriesService = class CategoriesService {
     }
     async create(createCategoryDto) {
         const category = this.categoriesRepository.create(createCategoryDto);
-        return await this.categoriesRepository.save(category);
+        return this.categoriesRepository.save(category);
     }
     async findAll() {
-        return await this.categoriesRepository.find({ relations: ['budget', 'transactions'] });
+        return await this.categoriesRepository.find({ relations: ['budgets', 'transactions'] });
     }
     async findOne(id) {
-        return await this.categoriesRepository.findOne({ where: { id }, relations: ['budget', 'transactions'] });
+        return await this.categoriesRepository.findOne({ where: { id }, relations: ['budgets', 'transactions'] });
     }
     async update(id, updateCategoryDto) {
         return await this.categoriesRepository.update(id, updateCategoryDto);

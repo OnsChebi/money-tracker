@@ -78,9 +78,10 @@ let BudgetsService = class BudgetsService {
         if (!budget) {
             throw new common_1.BadRequestException('Budget not found');
         }
+        let categoryAmount = 0;
         const expenses = await this.transactionsService.categoryExpenses(categoryId, month);
         const income = await this.transactionsService.categoryIncome(categoryId, month);
-        return budget.categoryAmount - expenses + income;
+        return (categoryAmount += -expenses + income);
     }
     async TotalBudget(month) {
         const budgets = await this.budgetsRepository.find();

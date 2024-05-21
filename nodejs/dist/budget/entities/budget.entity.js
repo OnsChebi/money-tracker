@@ -21,15 +21,15 @@ __decorate([
     __metadata("design:type", Number)
 ], Budget.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ default: 0 }),
     __metadata("design:type", Number)
 ], Budget.prototype, "amount", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ default: 0 }),
     __metadata("design:type", Number)
 ], Budget.prototype, "totalAmount", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ default: 0 }),
     __metadata("design:type", Number)
 ], Budget.prototype, "categoryAmount", void 0);
 __decorate([
@@ -41,8 +41,7 @@ __decorate([
     __metadata("design:type", user_entity_1.User)
 ], Budget.prototype, "user", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => category_entity_1.Category),
-    (0, typeorm_1.JoinColumn)(),
+    (0, typeorm_1.ManyToOne)(() => category_entity_1.Category, (category) => category.budgets),
     __metadata("design:type", category_entity_1.Category)
 ], Budget.prototype, "category", void 0);
 exports.Budget = Budget = __decorate([

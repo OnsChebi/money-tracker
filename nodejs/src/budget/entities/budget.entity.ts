@@ -7,15 +7,15 @@ import { User } from 'src/user/entities/user.entity';
 export class Budget {
   @PrimaryGeneratedColumn()
   id: number;
+ 
+  @Column({ default: 0 })
+    amount: number;
 
-  @Column()
-  amount: number;
+    @Column({ default: 0 })
+    totalAmount: number;
 
-  @Column()
-  totalAmount: number;
-
-  @Column()
-  categoryAmount: number;
+    @Column({ default: 0 })
+    categoryAmount: number;
 
 
   @Column()
@@ -24,7 +24,6 @@ export class Budget {
   @ManyToOne(() => User, user => user.budgets)
   user: User;
 
-  @OneToOne(() => Category)
-  @JoinColumn()
+  @ManyToOne(() => Category, (category) => category.budgets)
   category: Category;
 }

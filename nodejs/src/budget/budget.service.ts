@@ -86,11 +86,11 @@ export class BudgetsService {
     if (!budget) {
       throw new BadRequestException('Budget not found');
     }
-
+let categoryAmount=0;
     const expenses = await this.transactionsService.categoryExpenses(categoryId, month);
     const income = await this.transactionsService.categoryIncome(categoryId, month);
 
-    return budget.categoryAmount - expenses + income;
+    return  (categoryAmount+=- expenses + income);
   }
 
   async TotalBudget(month: string): Promise<number> {
