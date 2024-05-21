@@ -13,7 +13,11 @@ exports.User = void 0;
 const typeorm_1 = require("typeorm");
 const transaction_entity_1 = require("../../transactions/entities/transaction.entity");
 const budget_entity_1 = require("../../budget/entities/budget.entity");
+const bcrypt = require("bcrypt");
 let User = class User {
+    async validatePassword(password) {
+        return bcrypt.compare(password, this.password);
+    }
 };
 exports.User = User;
 __decorate([

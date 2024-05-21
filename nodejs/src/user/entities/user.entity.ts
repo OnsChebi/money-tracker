@@ -3,10 +3,11 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Transaction } from 'src/transactions/entities/transaction.entity';
 import { Budget } from 'src/budget/entities/budget.entity';
-
+import * as bcrypt from 'bcrypt';
 
 @Entity()
 export class User {
+
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -22,4 +23,8 @@ export class User {
 
   @OneToMany(() => Budget, budget => budget.user)
   budgets: Budget[];
+
+  async validatePassword(password: string): Promise<boolean> {
+    return bcrypt.compare(password, this.password);
+  }
 }

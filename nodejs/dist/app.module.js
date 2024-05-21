@@ -16,6 +16,7 @@ const typeorm_1 = require("@nestjs/typeorm");
 const categories_module_1 = require("./categories/categories.module");
 const budget_module_1 = require("./budget/budget.module");
 const user_module_1 = require("./user/user.module");
+const auth_module_1 = require("./auth/auth.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -25,18 +26,19 @@ exports.AppModule = AppModule = __decorate([
             config_1.ConfigModule.forRoot({ isGlobal: true }),
             typeorm_1.TypeOrmModule.forRoot({
                 type: 'mysql',
-                host: 'localhost',
-                port: 3306,
-                username: 'root',
-                password: 'root',
-                database: 'money_tracker',
-                autoLoadEntities: true,
+                host: process.env.DB_HOST || 'localhost',
+                port: parseInt(process.env.DB_PORT, 10) || 3306,
+                username: process.env.DB_USERNAME || 'root',
+                password: process.env.DB_PASSWORD || 'root',
+                database: process.env.DB_DATABASE || 'money_tracker',
+                entities: [__dirname + '/**/*.entity{.ts,.js}'],
                 synchronize: true,
             }),
             transactions_module_1.TransactionsModule,
             categories_module_1.CategoriesModule,
             budget_module_1.BudgetsModule,
-            user_module_1.UsersModule
+            user_module_1.UsersModule,
+            auth_module_1.AuthModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

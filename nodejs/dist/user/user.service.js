@@ -24,7 +24,9 @@ let UsersService = class UsersService {
     }
     async create(createUserDto) {
         const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
-        const user = this.usersRepository.create({ ...createUserDto, password: hashedPassword });
+        const user = new user_entity_1.User();
+        user.email = createUserDto.email;
+        user.password = hashedPassword;
         return this.usersRepository.save(user);
     }
     async findAll() {

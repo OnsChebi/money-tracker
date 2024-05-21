@@ -5,17 +5,17 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthService {
-  link = 'http://localhost:3000/api/auth';
+  link = 'http://localhost:3000/auth';
 
   constructor(private http: HttpClient) {}
 
-  // create(identifiants : any) {
-  //   return this.http.post(${this.link}/register, identifiants);
-  // }
+  inscription(identifiants:any) {
+    return this.http.post(`${this.link}/register`, identifiants);
+  }
 
-  // seConnecter(identifiants : any) {
-  //   return this.http.post(${this.link}/login, identifiants);
-  // }
+  seConnecter(identifiants:any) {
+    return this.http.post(`${this.link}/login`, identifiants);
+  }
 
   seDeconnecter() {
     localStorage.removeItem('access_token');

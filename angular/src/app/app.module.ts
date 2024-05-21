@@ -17,6 +17,8 @@ import { MangeCatComponent } from './components/mange-cat/mange-cat.component';
 import { FormsModule } from '@angular/forms';
 import { SigninComponent } from './components/signin/signin.component';
 import { SignupComponent } from './components/signup/signup.component';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { addtokenInterceptor } from './addtoken-intercepteur';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +42,7 @@ import { SignupComponent } from './components/signup/signup.component';
     FormsModule
   ],
   providers: [
-    provideAnimationsAsync()
+    [provideHttpClient(withInterceptors([addtokenInterceptor]))]
   ],
   bootstrap: [AppComponent]
 })

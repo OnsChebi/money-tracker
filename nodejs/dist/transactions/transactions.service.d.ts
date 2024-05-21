@@ -19,7 +19,7 @@ export declare class TransactionsService {
         amount: number;
         date: string;
         tags?: string[];
-        type: "income" | "expense";
+        type: "expense" | "income";
         id: number;
         user: import("../user/entities/user.entity").User;
     } & Transaction>;

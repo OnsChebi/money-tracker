@@ -6,4 +6,5 @@ export declare class User {
     password: string;
     transactions: Transaction[];
     budgets: Budget[];
+    validatePassword(password: string): Promise<boolean>;
 }
