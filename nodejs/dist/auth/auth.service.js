@@ -12,29 +12,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
-const bcrypt = require("bcrypt");
+const bcryptjs = require("bcryptjs");
 const user_service_1 = require("../user/user.service");
 let AuthService = class AuthService {
     constructor(usersService, jwtService) {
         this.usersService = usersService;
         this.jwtService = jwtService;
     }
-    async validateUser(email, password) {
-        const user = await this.usersService.findByEmail(email);
-        if (user && await bcrypt.compare(password, user.password)) {
-            return user;
-        }
-        return null;
-    }
-    async login(user) {
-        const payload = { email: user.email, sub: user.userId };
-        return {
-            access_token: this.jwtService.sign(payload),
-        };
-    }
     async register(user) {
-        user.password = await bcrypt.hash(user.password, 10);
+        user.password = await bcryptjs.hash(user.password, 10);
         return this.usersService.create(user);
+    }
+    async login({ email, password }) {
+        const user = await this.usersService.findByEmail(email);
+        if (!user) {
+            throw new common_1.UnauthorizedException("Invalid email");
+        }
+        const isPasswordValid = await bcryptjs.compare(password, user.password);
+        if (!isPasswordValid) {
+            throw new common_1.UnauthorizedException("Invalid password");
+        }
+        return {
+            email: user.email,
+        };
     }
 };
 exports.AuthService = AuthService;

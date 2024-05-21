@@ -21,12 +21,8 @@ let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
-    async login(loginDto) {
-        const user = await this.authService.validateUser(loginDto.email, loginDto.password);
-        if (!user) {
-            throw new common_1.UnauthorizedException('Invalid credentials');
-        }
-        return this.authService.login(user);
+    login(loginDto) {
+        return this.authService.login(loginDto);
     }
     async register(createAuthDto) {
         return this.authService.register(createAuthDto);
@@ -34,11 +30,12 @@ let AuthController = class AuthController {
 };
 exports.AuthController = AuthController;
 __decorate([
-    (0, common_1.Post)('login'),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    (0, common_1.Post)("login"),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [login_dto_1.LoginDto]),
-    __metadata("design:returntype", Promise)
+    __metadata("design:returntype", void 0)
 ], AuthController.prototype, "login", null);
 __decorate([
     (0, common_1.Post)('register'),
