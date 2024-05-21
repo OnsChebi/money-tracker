@@ -11,35 +11,29 @@
 		</div>
 	</div>
 	<div class="flex justify-center self-center  z-10">
+		<form #f="ngForm" (ngSubmit)="submitHandler(f)">
 		<div class="p-12 bg-white mx-auto rounded-3xl w-96 ">
 			<div class="mb-7">
 				<h3 class="font-semibold text-2xl text-gray-800">Sign Up </h3>
 				<p class="text-gray-400">Do you have an account?
-					 <a routerLink="/login" class="text-sm text-green-700 hover:text-green-700">Sign In</a>
+					 <a routerLink="/signin" class="text-sm text-green-700 hover:text-green-700">Sign In</a>
 				</p>
 			</div>
 			<div class="space-y-6">
                 <div >
-					<input class=" w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-200 border  border-green-200 rounded-lg focus:outline-none focus:border-green-400" type="text" placeholder="First name" [(ngModel)]="signup.Fname" name="Fname"/>
+					<input class=" w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-200 border  border-green-200 rounded-lg focus:outline-none focus:border-green-400" type="text" placeholder="First name" ngModel name="Fname"/>
               	</div>
               <div >
-                <input class=" w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-200 border  border-green-200 rounded-lg focus:outline-none focus:border-green-400" type="text" placeholder="Last name" [(ngModel)]="signup.Lname" name="lname"/>
+                <input class=" w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-200 border  border-green-200 rounded-lg focus:outline-none focus:border-green-400" type="text" placeholder="Last name" ngModel name="lname"/>
           		</div>
 				<div >
 					<input class=" w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-200 border  border-green-200 rounded-lg focus:outline-none focus:border-green-400" type="email" placeholder="Email" 
 					
-					[(ngModel)]="signup.Email" name="email"/>
+					ngModel name="email"/>
               </div>
-
-
 					<div class="relative" x-data="{ show: true }">
-						<input placeholder="Password" :type="Password" class="w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-200 border  border-green-200 rounded-lg focus:outline-none focus:border-green-400" [(ngModel)]="signup.pass" name="pass"/>
-						
+						<input placeholder="Password" :type="Password" class="w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-200 border  border-green-200 rounded-lg focus:outline-none focus:border-green-400" ngModel name="pass"/>
 					</div>
-                    <div class="relative" x-data="{ show: true }">
-						<input placeholder="Confirm your password" :type="Password" class="w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-200 border  border-green-200 rounded-lg focus:outline-none focus:border-green-400" [(ngModel)]="signup.Confirmpass" name="Confirmpass"/>						
-					</div>
-
                     <div>
 						<button (click)="onRegister()" type="submit" class="w-full flex justify-center bg-green-400 active:bg-green-900 text-white p-3  rounded-lg tracking-wide font-semibold  cursor-pointer transition ease-in duration-500">
 							Sign up
@@ -68,7 +62,9 @@
                 Copyright © 2021-2023
 				</div>
 			</div>
+			</form>
 		</div>
+		
 	</div>
 	
 
