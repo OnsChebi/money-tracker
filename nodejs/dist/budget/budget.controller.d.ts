@@ -5,9 +5,9 @@ import { BudgetsService } from './budget.service';
 export declare class BudgetsController {
     private readonly budgetsService;
     constructor(budgetsService: BudgetsService);
-    create(createBudgetDto: CreateBudgetDto, req: Request): Promise<import("./entities/budget.entity").Budget>;
-    findAll(req: Request): Promise<import("./entities/budget.entity").Budget[]>;
-    findOne(id: number, req: Request): Promise<import("./entities/budget.entity").Budget>;
+    create(createBudgetDto: CreateBudgetDto): Promise<import("./entities/budget.entity").Budget>;
+    findAll(): Promise<import("./entities/budget.entity").Budget[]>;
+    findOne(id: number): Promise<import("./entities/budget.entity").Budget>;
     update(id: number, updateBudgetDto: UpdateBudgetDto, req: Request): Promise<import("./entities/budget.entity").Budget>;
     remove(id: number, req: Request): Promise<import("./entities/budget.entity").Budget>;
 }

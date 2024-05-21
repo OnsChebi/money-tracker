@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { Transaction } from './entities/transaction.entity';
 import { Category } from 'src/categories/entities/category.entity';
 import { sanitizeHtml } from 'src/sanitize.helper';
+import { Budget } from 'src/budget/entities/budget.entity';
 
 @Injectable()
 export class TransactionsService {
@@ -14,6 +15,8 @@ export class TransactionsService {
     private transactionRepository: Repository<Transaction>,
     @InjectRepository(Category)
     private categoriesRepository: Repository<Category>,
+    @InjectRepository(Budget)
+    private budgetsRepository: Repository<Budget>
   ) {}
 
   async create(createTransactionDto: CreateTransactionDto) {

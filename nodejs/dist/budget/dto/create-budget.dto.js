@@ -19,13 +19,14 @@ __decorate([
     __metadata("design:type", Number)
 ], CreateBudgetDto.prototype, "amount", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)({ message: 'Month must be a string' }),
+    (0, class_validator_1.Matches)(/^(January|February|March|April|May|June|July|August|September|October|November|December)$/, { message: 'Month must be a valid month' }),
+    (0, class_validator_1.IsNotEmpty)({ message: 'Month is required' }),
     __metadata("design:type", String)
 ], CreateBudgetDto.prototype, "month", void 0);
 __decorate([
-    (0, class_validator_1.IsString)(),
-    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsString)({ message: 'Category must be a string' }),
+    (0, class_validator_1.IsNotEmpty)({ message: 'Category is required' }),
     __metadata("design:type", String)
 ], CreateBudgetDto.prototype, "category", void 0);
 //# sourceMappingURL=create-budget.dto.js.map

@@ -10,20 +10,26 @@ export class BudgetsController {
   constructor(private readonly budgetsService: BudgetsService) {}
 
   @Post()
-  create(@Body() createBudgetDto: CreateBudgetDto, @Req() req: Request) {
-    const userId = (req as any).user.id; 
-    return this.budgetsService.create(createBudgetDto, userId);
+  // create(@Body() createBudgetDto: CreateBudgetDto, @Req() req: Request) {
+    // userId = (req as any).user.id;
+    async create(@Body() createBudgetDto: CreateBudgetDto){
+    const userId=1;
+    return await this.budgetsService.create(createBudgetDto, userId);
   }
 
   @Get()
-  findAll(@Req() req: Request) {
-    const userId = (req as any).user.id;
+ // findAll(@Req() req: Request) {
+    // const userId = (req as any).user.id;
+    findAll(){
+    const userId=1;
     return this.budgetsService.findAll(userId);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number, @Req() req: Request) {
-    const userId = (req as any).user.id;
+  // findOne(@Param('id') id: number, @Req() req: Request) {
+    // const userId = (req as any).user.id;
+    findOne(@Param('id')id:number){
+    const userId=1;
     return this.budgetsService.findOne(id, userId);
   }
 

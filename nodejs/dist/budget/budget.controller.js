@@ -21,16 +21,16 @@ let BudgetsController = class BudgetsController {
     constructor(budgetsService) {
         this.budgetsService = budgetsService;
     }
-    create(createBudgetDto, req) {
-        const userId = req.user.id;
-        return this.budgetsService.create(createBudgetDto, userId);
+    async create(createBudgetDto) {
+        const userId = 1;
+        return await this.budgetsService.create(createBudgetDto, userId);
     }
-    findAll(req) {
-        const userId = req.user.id;
+    findAll() {
+        const userId = 1;
         return this.budgetsService.findAll(userId);
     }
-    findOne(id, req) {
-        const userId = req.user.id;
+    findOne(id) {
+        const userId = 1;
         return this.budgetsService.findOne(id, userId);
     }
     update(id, updateBudgetDto, req) {
@@ -46,24 +46,21 @@ exports.BudgetsController = BudgetsController;
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_budget_dto_1.CreateBudgetDto, Object]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [create_budget_dto_1.CreateBudgetDto]),
+    __metadata("design:returntype", Promise)
 ], BudgetsController.prototype, "create", null);
 __decorate([
     (0, common_1.Get)(),
-    __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], BudgetsController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Object]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
 ], BudgetsController.prototype, "findOne", null);
 __decorate([
