@@ -24,6 +24,8 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
+ 
+
   @Put(':id')
   update(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(id, updateUserDto);
