@@ -1,5 +1,5 @@
 // src/budgets/budgets.service.ts
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException, forwardRef, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Transaction } from 'typeorm';
 import { Budget } from './entities/budget.entity';
@@ -7,6 +7,7 @@ import { CreateBudgetDto } from './dto/create-budget.dto';
 import { UpdateBudgetDto } from './dto/update-budget.dto';
 import { Category } from 'src/categories/entities/category.entity';
 import { User } from 'src/user/entities/user.entity';
+import { TransactionsService } from 'src/transactions/transactions.service';
 
 @Injectable()
 export class BudgetsService {
@@ -15,8 +16,8 @@ export class BudgetsService {
     private budgetsRepository: Repository<Budget>,
     @InjectRepository(Category)
     private categoriesRepository: Repository<Category>,
-    // @InjectRepository(Transaction)
-    // private transactionsRepository:Repository<Transaction>
+    @Inject(forwardRef(() => TransactionsService))
+    private transactionsService: TransactionsService,
   ) {}
 
   async create(createBudgetDto: CreateBudgetDto, userId: number) {
@@ -79,6 +80,31 @@ export class BudgetsService {
     return this.budgetsRepository.remove(budget);
   }
 
+  
+  async CategoryTotalBudget(categoryId: number, month: string): Promise<number> {
+    const budget = await this.budgetsRepository.findOne({ where: { category: { id: categoryId }, month } });
+    if (!budget) {
+      throw new BadRequestException('Budget not found');
+    }
+
+    const expenses = await this.transactionsService.categoryExpenses(categoryId, month);
+    const income = await this.transactionsService.categoryIncome(categoryId, month);
+
+    return budget.categoryAmount - expenses + income;
+  }
+
+  async TotalBudget(month: string): Promise<number> {
+    const budgets = await this.budgetsRepository.find();
+  
+    let totalBudget = 0;
+    for (const budget of budgets) {
+      const expenses = await this.transactionsService.allExpenses(month);
+      const income = await this.transactionsService.allIncomes(month);
+      totalBudget += budget.categoryAmount - expenses + income;
+    }
+  
+    return totalBudget;
+  }
  
 
 }

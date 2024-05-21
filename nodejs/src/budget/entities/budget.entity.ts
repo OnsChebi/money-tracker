@@ -15,6 +15,10 @@ export class Budget {
   totalAmount: number;
 
   @Column()
+  categoryAmount: number;
+
+
+  @Column()
   month: string;  
 
   @ManyToOne(() => User, user => user.budgets)

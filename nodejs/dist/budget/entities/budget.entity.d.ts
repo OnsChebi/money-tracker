@@ -4,6 +4,7 @@ export declare class Budget {
     id: number;
     amount: number;
     totalAmount: number;
+    categoryAmount: number;
     month: string;
     user: User;
     category: Category;

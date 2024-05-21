@@ -19,10 +19,12 @@ const typeorm_2 = require("typeorm");
 const transaction_entity_1 = require("./entities/transaction.entity");
 const category_entity_1 = require("../categories/entities/category.entity");
 const sanitize_helper_1 = require("../sanitize.helper");
+const budget_service_1 = require("../budget/budget.service");
 let TransactionsService = class TransactionsService {
-    constructor(transactionRepository, categoriesRepository) {
+    constructor(transactionRepository, categoriesRepository, budgetService) {
         this.transactionRepository = transactionRepository;
         this.categoriesRepository = categoriesRepository;
+        this.budgetService = budgetService;
     }
     async create(createTransactionDto) {
         const category = await this.categoriesRepository.findOneBy({
@@ -71,13 +73,53 @@ let TransactionsService = class TransactionsService {
     async remove(id) {
         return await this.transactionRepository.softDelete(id);
     }
+    async categoryExpenses(categoryId, month) {
+        const expenses = await this.transactionRepository
+            .createQueryBuilder('transaction')
+            .select('SUM(transaction.amount)', 'total')
+            .where('transaction.categoryId = :categoryId', { categoryId })
+            .andWhere('transaction.type = :type', { type: 'expense' })
+            .andWhere('TO_CHAR(transaction.date, \'YYYY-MM\') = :month', { month })
+            .getRawOne();
+        return expenses.total || 0;
+    }
+    async allExpenses(month) {
+        const expenses = await this.transactionRepository
+            .createQueryBuilder('transaction')
+            .select('SUM(transaction.amount)', 'total')
+            .andWhere('transaction.type = :type', { type: 'expense' })
+            .andWhere('TO_CHAR(transaction.date, \'YYYY-MM\') = :month', { month })
+            .getRawOne();
+        return expenses.total || 0;
+    }
+    async categoryIncome(categoryId, month) {
+        const income = await this.transactionRepository
+            .createQueryBuilder('transaction')
+            .select('SUM(transaction.amount)', 'total')
+            .where('transaction.categoryId = :categoryId', { categoryId })
+            .andWhere('transaction.type = :type', { type: 'income' })
+            .andWhere('TO_CHAR(transaction.date, \'YYYY-MM\') = :month', { month })
+            .getRawOne();
+        return income.total || 0;
+    }
+    async allIncomes(month) {
+        const expenses = await this.transactionRepository
+            .createQueryBuilder('transaction')
+            .select('SUM(transaction.amount)', 'total')
+            .andWhere('transaction.type = :type', { type: 'income' })
+            .andWhere('TO_CHAR(transaction.date, \'YYYY-MM\') = :month', { month })
+            .getRawOne();
+        return expenses.total || 0;
+    }
 };
 exports.TransactionsService = TransactionsService;
 exports.TransactionsService = TransactionsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(transaction_entity_1.Transaction)),
     __param(1, (0, typeorm_1.InjectRepository)(category_entity_1.Category)),
+    __param(2, (0, common_1.Inject)((0, common_1.forwardRef)(() => budget_service_1.BudgetsService))),
     __metadata("design:paramtypes", [typeorm_2.Repository,
-        typeorm_2.Repository])
+        typeorm_2.Repository,
+        budget_service_1.BudgetsService])
 ], TransactionsService);
 //# sourceMappingURL=transactions.service.js.map

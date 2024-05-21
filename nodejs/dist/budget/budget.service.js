@@ -18,10 +18,12 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const budget_entity_1 = require("./entities/budget.entity");
 const category_entity_1 = require("../categories/entities/category.entity");
+const transactions_service_1 = require("../transactions/transactions.service");
 let BudgetsService = class BudgetsService {
-    constructor(budgetsRepository, categoriesRepository) {
+    constructor(budgetsRepository, categoriesRepository, transactionsService) {
         this.budgetsRepository = budgetsRepository;
         this.categoriesRepository = categoriesRepository;
+        this.transactionsService = transactionsService;
     }
     async create(createBudgetDto, userId) {
         const category = await this.categoriesRepository.findOne({ where: { name: createBudgetDto.category } });
@@ -71,13 +73,34 @@ let BudgetsService = class BudgetsService {
         const budget = await this.findOne(id, userId);
         return this.budgetsRepository.remove(budget);
     }
+    async CategoryTotalBudget(categoryId, month) {
+        const budget = await this.budgetsRepository.findOne({ where: { category: { id: categoryId }, month } });
+        if (!budget) {
+            throw new common_1.BadRequestException('Budget not found');
+        }
+        const expenses = await this.transactionsService.categoryExpenses(categoryId, month);
+        const income = await this.transactionsService.categoryIncome(categoryId, month);
+        return budget.categoryAmount - expenses + income;
+    }
+    async TotalBudget(month) {
+        const budgets = await this.budgetsRepository.find();
+        let totalBudget = 0;
+        for (const budget of budgets) {
+            const expenses = await this.transactionsService.allExpenses(month);
+            const income = await this.transactionsService.allIncomes(month);
+            totalBudget += budget.categoryAmount - expenses + income;
+        }
+        return totalBudget;
+    }
 };
 exports.BudgetsService = BudgetsService;
 exports.BudgetsService = BudgetsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(budget_entity_1.Budget)),
     __param(1, (0, typeorm_1.InjectRepository)(category_entity_1.Category)),
+    __param(2, (0, common_1.Inject)((0, common_1.forwardRef)(() => transactions_service_1.TransactionsService))),
     __metadata("design:paramtypes", [typeorm_2.Repository,
-        typeorm_2.Repository])
+        typeorm_2.Repository,
+        transactions_service_1.TransactionsService])
 ], BudgetsService);
 //# sourceMappingURL=budget.service.js.map

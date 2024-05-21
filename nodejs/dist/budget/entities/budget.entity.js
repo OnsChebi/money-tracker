@@ -30,6 +30,10 @@ __decorate([
 ], Budget.prototype, "totalAmount", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
+], Budget.prototype, "categoryAmount", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Budget.prototype, "month", void 0);
 __decorate([
