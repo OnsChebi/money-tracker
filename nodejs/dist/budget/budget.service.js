@@ -19,10 +19,9 @@ const typeorm_2 = require("typeorm");
 const budget_entity_1 = require("./entities/budget.entity");
 const category_entity_1 = require("../categories/entities/category.entity");
 let BudgetsService = class BudgetsService {
-    constructor(budgetsRepository, categoriesRepository, transactionsRepository) {
+    constructor(budgetsRepository, categoriesRepository) {
         this.budgetsRepository = budgetsRepository;
         this.categoriesRepository = categoriesRepository;
-        this.transactionsRepository = transactionsRepository;
     }
     async create(createBudgetDto, userId) {
         const category = await this.categoriesRepository.findOne({ where: { name: createBudgetDto.category } });
@@ -72,58 +71,13 @@ let BudgetsService = class BudgetsService {
         const budget = await this.findOne(id, userId);
         return this.budgetsRepository.remove(budget);
     }
-    async CategoryExpenses(categoryId) {
-        const expenses = await this.transactionsRepository
-            .createQueryBuilder('transaction')
-            .select('SUM(transaction.amount)', 'total')
-            .where('transaction.categoryId = :categoryId', { categoryId })
-            .andWhere('transaction.type = :type', { type: 'expense' })
-            .getRawOne();
-        return expenses.total || 0;
-    }
-    async AllExpenses() {
-        const expenses = await this.transactionsRepository
-            .createQueryBuilder('transaction')
-            .select('SUM(transaction.amount)', 'total')
-            .andWhere('transaction.type = :type', { type: 'expense' })
-            .getRawOne();
-        return expenses.total || 0;
-    }
-    async CategoryIncome(categoryId) {
-        const expenses = await this.transactionsRepository
-            .createQueryBuilder('transaction')
-            .select('SUM(transaction.amount)', 'total')
-            .where('transaction.categoryId = :categoryId', { categoryId })
-            .andWhere('transaction.type = :type', { type: 'expense' })
-            .getRawOne();
-        return expenses.total || 0;
-    }
-    async AllIncomes() {
-        const expenses = await this.transactionsRepository
-            .createQueryBuilder('transaction')
-            .select('SUM(transaction.amount)', 'total')
-            .andWhere('transaction.type = :type', { type: 'income' })
-            .getRawOne();
-        return expenses.total || 0;
-    }
-    async CategoryTotalBudget(categoryId) {
-        const budget = await this.budgetsRepository.findOne({ where: { category: { id: categoryId } } });
-        if (!budget) {
-            throw new common_1.BadRequestException('Budget not found');
-        }
-        const expenses = await this.CategoryExpenses(categoryId);
-        const income = await this.CategoryIncome(categoryId);
-        return budget.totalAmount - expenses + income;
-    }
 };
 exports.BudgetsService = BudgetsService;
 exports.BudgetsService = BudgetsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(budget_entity_1.Budget)),
     __param(1, (0, typeorm_1.InjectRepository)(category_entity_1.Category)),
-    __param(2, (0, typeorm_1.InjectRepository)(typeorm_2.Transaction)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
-        typeorm_2.Repository,
         typeorm_2.Repository])
 ], BudgetsService);
 //# sourceMappingURL=budget.service.js.map

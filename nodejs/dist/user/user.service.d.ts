@@ -8,6 +8,7 @@ export declare class UsersService {
     create(createUserDto: CreateUserDto): Promise<User>;
     findAll(): Promise<User[]>;
     findOne(id: number): Promise<User>;
+    findByEmail(email: string): Promise<User | undefined>;
     findByUsername(email: string): Promise<User>;
     update(id: number, updateUserDto: UpdateUserDto): Promise<User>;
     remove(id: number): Promise<void>;

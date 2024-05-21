@@ -8,50 +8,39 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
-const user_service_1 = require("../user/user.service");
 const jwt_1 = require("@nestjs/jwt");
+const bcrypt = require("bcrypt");
+const user_service_1 = require("../user/user.service");
 let AuthService = class AuthService {
-    constructor(userService, jwtService) {
-        this.userService = userService;
+    constructor(usersService, jwtService) {
+        this.usersService = usersService;
         this.jwtService = jwtService;
     }
-    async Create(authLogin) {
-        const user = await this.validateUser(authLogin);
-        const payload = {
-            userId: user.id
-        };
-        return {
-            access_token: this.jwtService.sign(payload)
-        };
-    }
-    async validateUser(authLogin) {
-        const { email, password } = authLogin;
-        const user = await this.userService.findByUsername(email);
-        if (!(await user?.validatePassword(password))) {
-            throw new common_1.UnauthorizedException('Invalid credentials');
+    async validateUser(email, password) {
+        const user = await this.usersService.findByEmail(email);
+        if (user && await bcrypt.compare(password, user.password)) {
+            return user;
         }
-        return user;
+        return null;
     }
-    findAll() {
-        return `This action returns all auth`;
+    async login(user) {
+        const payload = { email: user.email, sub: user.userId };
+        return {
+            access_token: this.jwtService.sign(payload),
+        };
     }
-    findOne(id) {
-        return `This action returns a #${id} auth`;
-    }
-    update(id, updateAuthDto) {
-        return `This action updates a #${id} auth`;
-    }
-    remove(id) {
-        return `This action removes a #${id} auth`;
+    async register(user) {
+        user.password = await bcrypt.hash(user.password, 10);
+        return this.usersService.create(user);
     }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [user_service_1.UsersService, typeof (_a = typeof jwt_1.JwtService !== "undefined" && jwt_1.JwtService) === "function" ? _a : Object])
+    __metadata("design:paramtypes", [user_service_1.UsersService,
+        jwt_1.JwtService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

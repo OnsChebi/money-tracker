@@ -15,8 +15,8 @@ export class TransactionsService {
     private transactionRepository: Repository<Transaction>,
     @InjectRepository(Category)
     private categoriesRepository: Repository<Category>,
-    @InjectRepository(Budget)
-    private budgetsRepository: Repository<Budget>
+    // @InjectRepository(Budget)
+    // private budgetsRepository: Repository<Budget>
   ) {}
 
   async create(createTransactionDto: CreateTransactionDto) {

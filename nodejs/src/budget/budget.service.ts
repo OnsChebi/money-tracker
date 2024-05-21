@@ -15,8 +15,8 @@ export class BudgetsService {
     private budgetsRepository: Repository<Budget>,
     @InjectRepository(Category)
     private categoriesRepository: Repository<Category>,
-    @InjectRepository(Transaction)
-    private transactionsRepository:Repository<Transaction>
+    // @InjectRepository(Transaction)
+    // private transactionsRepository:Repository<Transaction>
   ) {}
 
   async create(createBudgetDto: CreateBudgetDto, userId: number) {
@@ -79,57 +79,6 @@ export class BudgetsService {
     return this.budgetsRepository.remove(budget);
   }
 
-  async CategoryExpenses(categoryId: number): Promise<number> {
-    const expenses = await this.transactionsRepository
-      .createQueryBuilder('transaction')
-      .select('SUM(transaction.amount)', 'total')
-      .where('transaction.categoryId = :categoryId', { categoryId })
-      .andWhere('transaction.type = :type', { type: 'expense' })
-      .getRawOne();
+ 
 
-    return expenses.total || 0;
-  }
-
-  async AllExpenses(): Promise<number> {
-    const expenses = await this.transactionsRepository
-      .createQueryBuilder('transaction')
-      .select('SUM(transaction.amount)', 'total')
-      .andWhere('transaction.type = :type', { type: 'expense' })
-      .getRawOne();
-
-    return expenses.total || 0;
-  }
-
-
-  async CategoryIncome(categoryId: number): Promise<number> {
-    const expenses = await this.transactionsRepository
-      .createQueryBuilder('transaction')
-      .select('SUM(transaction.amount)', 'total')
-      .where('transaction.categoryId = :categoryId', { categoryId })
-      .andWhere('transaction.type = :type', { type: 'expense' })
-      .getRawOne();
-
-    return expenses.total || 0;
-  }
-
-  async AllIncomes(): Promise<number> {
-    const expenses = await this.transactionsRepository
-      .createQueryBuilder('transaction')
-      .select('SUM(transaction.amount)', 'total')
-      .andWhere('transaction.type = :type', { type: 'income' })
-      .getRawOne();
-
-    return expenses.total || 0;
-  }
-  async CategoryTotalBudget(categoryId: number): Promise<number> {
-    const budget = await this.budgetsRepository.findOne({ where: { category: { id: categoryId } } });
-    if (!budget) {
-      throw new BadRequestException('Budget not found');
-    }
-
-    const expenses = await this.CategoryExpenses(categoryId);
-    const income = await this.CategoryIncome(categoryId);
-
-    return budget.totalAmount - expenses + income;
-  }
 }

@@ -12,6 +12,7 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
+    
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
@@ -33,6 +34,9 @@ export class UsersService {
       throw new NotFoundException(`User number #${id} is not found`);
     }
     return user;
+  }
+  async findByEmail(email: string): Promise<User | undefined> {
+    return this.usersRepository.findOneBy({email});
   }
 
   async findByUsername(email: string): Promise<User> {

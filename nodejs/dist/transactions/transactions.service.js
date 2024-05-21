@@ -19,12 +19,10 @@ const typeorm_2 = require("typeorm");
 const transaction_entity_1 = require("./entities/transaction.entity");
 const category_entity_1 = require("../categories/entities/category.entity");
 const sanitize_helper_1 = require("../sanitize.helper");
-const budget_entity_1 = require("../budget/entities/budget.entity");
 let TransactionsService = class TransactionsService {
-    constructor(transactionRepository, categoriesRepository, budgetsRepository) {
+    constructor(transactionRepository, categoriesRepository) {
         this.transactionRepository = transactionRepository;
         this.categoriesRepository = categoriesRepository;
-        this.budgetsRepository = budgetsRepository;
     }
     async create(createTransactionDto) {
         const category = await this.categoriesRepository.findOneBy({
@@ -79,9 +77,7 @@ exports.TransactionsService = TransactionsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(transaction_entity_1.Transaction)),
     __param(1, (0, typeorm_1.InjectRepository)(category_entity_1.Category)),
-    __param(2, (0, typeorm_1.InjectRepository)(budget_entity_1.Budget)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
-        typeorm_2.Repository,
         typeorm_2.Repository])
 ], TransactionsService);
 //# sourceMappingURL=transactions.service.js.map

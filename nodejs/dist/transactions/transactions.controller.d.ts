@@ -14,7 +14,7 @@ export declare class TransactionsController {
         amount: number;
         date: string;
         tags?: string[];
-        type: "expense" | "income";
+        type: "income" | "expense";
         id: number;
         user: import("../user/entities/user.entity").User;
     } & import("./entities/transaction.entity").Transaction>;

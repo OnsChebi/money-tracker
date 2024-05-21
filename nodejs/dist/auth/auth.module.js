@@ -23,13 +23,17 @@ exports.AuthModule = AuthModule = __decorate([
         imports: [
             user_module_1.UsersModule,
             passport_1.PassportModule,
+            config_1.ConfigModule.forRoot({
+                isGlobal: true,
+            }),
             jwt_1.JwtModule.registerAsync({
                 imports: [config_1.ConfigModule],
-                useFactory: async () => ({
-                    secret: 'pplucky00691234'
+                useFactory: async (configService) => ({
+                    secret: configService.get('JWT_SECRET'),
+                    signOptions: { expiresIn: '60m' },
                 }),
-                inject: [config_1.ConfigService]
-            })
+                inject: [config_1.ConfigService],
+            }),
         ],
         controllers: [auth_controller_1.AuthController],
         providers: [auth_service_1.AuthService, jwt_strategy_1.JwtStrategy],

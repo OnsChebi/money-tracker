@@ -1,46 +1,33 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
-import { UsersService } from 'src/user/user.service';
 import { JwtService } from '@nestjs/jwt';
+
+import * as bcrypt from 'bcrypt';
+import { UsersService } from 'src/user/user.service';
 
 @Injectable()
 export class AuthService {
-constructor(private userService:UsersService, private jwtService: JwtService){}
+  constructor(
+    private usersService: UsersService,
+    private jwtService: JwtService
+  ) {}
 
-async Create(authLogin: CreateAuthDto){
-  const user = await this.validateUser(authLogin);
-  const payload ={
-    userId:user.id
-  };
-
-  return{
-    access_token:this.jwtService.sign(payload)
-  };
-}
-
-async validateUser(authLogin:CreateAuthDto){
-  const{email,password} = authLogin;
-  const user=await this.userService.findByUsername(email);
-  if(!(await user?.validatePassword(password))){
-    throw new UnauthorizedException('Invalid credentials');
-  }
-  return user;
-}
-
-  findAll() {
-    return `This action returns all auth`;
+  async validateUser(email: string, password: string): Promise<any> {
+    const user = await this.usersService.findByEmail(email);
+    if (user && await bcrypt.compare(password, user.password)) {
+      return user; 
+    }
+    return null;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
+  async login(user: any) {
+    const payload = { email: user.email, sub: user.userId };
+    return {
+      access_token: this.jwtService.sign(payload),
+    };
   }
 
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
+  async register(user: any) {
+    user.password = await bcrypt.hash(user.password, 10);
+    return this.usersService.create(user);
   }
 }
