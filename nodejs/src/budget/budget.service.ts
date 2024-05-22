@@ -81,17 +81,18 @@ export class BudgetsService {
   }
 
   
-  async CategoryTotalBudget(categoryId: number, month: string): Promise<number> {
+  async CategoryTotalBudget(categoryId: number, month: string) {
     const budget = await this.budgetsRepository.findOne({ where: { category: { id: categoryId }, month } });
     if (!budget) {
       throw new BadRequestException('Budget not found');
     }
-let categoryAmount=0;
+
     const expenses = await this.transactionsService.categoryExpenses(categoryId, month);
     const income = await this.transactionsService.categoryIncome(categoryId, month);
 
-    return  (categoryAmount+=- expenses + income);
-  }
+    const categoryAmount = budget.categoryAmount - expenses + income;
+    return categoryAmount;
+}
 
   async TotalBudget(month: string): Promise<number> {
     const budgets = await this.budgetsRepository.find();
